@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="label" type="java.lang.String"
+			required="true" />
+		<composite:attribute name="page" type="java.lang.String"
+			required="true" />
+		<composite:attribute name="active" type="java.lang.Boolean"
+			default="false" />
+		<composite:attribute name="rendered" type="java.lang.Boolean" 
+			default="true" />
+	</composite:interface>
+
+	<composite:implementation>
+		
+		<li>
+			<h:outputLink value="#{cc.attrs.page}.jsf" styleClass="#{cc.attrs.active ? 'active' : ''}" rendered="#{cc.attrs.rendered}">
+	            <span class="l"></span>
+				<span class="r"></span>
+				<span class="t">#{cc.attrs.label}</span>
+			</h:outputLink>
+		</li>
+
+	</composite:implementation>
+</h:body>
+</html>

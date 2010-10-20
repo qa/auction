@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="auctions" type="java.util.List"
+			required="true" />
+		<composite:attribute name="rendered" type="java.lang.Boolean"
+			default="true" />
+	</composite:interface>
+
+	<composite:implementation>
+
+		<h:dataTable value="#{cc.attrs.auctions}" var="auct" border="1">
+			<h:column>
+				<h:outputLink value="detail.jsf?auctionId=#{auct.id}">#{auct.name}</h:outputLink>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Drazitel</f:facet>
+				#{auct.owner.name}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Pocatecni cena</f:facet>
+				#{auct.originalPrice}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nejvyssi nabidka</f:facet>
+				<h:outputText value="#{auct.highestBid.bidder.name}: #{auct.highestBid.amount}" rendered="#{not empty auct.bids}" />
+				<h:outputText value="-" rendered="#{empty auct.bids}" />
+			</h:column>
+		</h:dataTable>
+
+	</composite:implementation>
+</h:body>
+</html>
