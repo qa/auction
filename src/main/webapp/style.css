@@ -75,7 +75,24 @@ table.position
 	width: 100%;
 	table-layout: fixed;
 }
+
+
+
+/* Listing tables */
+table.flat {
+  border-style: none;
+  border-collapse: collapse;
+}
+table.flat tr td,
+table.flat tr th {
+	border: 1px solid gray;
+}
+
+
 /* end Page */
+
+
+
 
 /* begin Box, Sheet */
 .art-Sheet
@@ -93,6 +110,7 @@ table.position
 	position: relative;
 	z-index:1;
 	padding: 10px;
+	xbackground-color: white;
 }
 
 .art-Sheet-tr, .art-Sheet-tl, .art-Sheet-br, .art-Sheet-bl, .art-Sheet-tc, .art-Sheet-bc,.art-Sheet-cr, .art-Sheet-cl
@@ -255,8 +273,8 @@ h1.art-Logo-name
 
 h1.art-Logo-name, h1.art-Logo-name a, h1.art-Logo-name a:link, h1.art-Logo-name a:visited, h1.art-Logo-name a:hover
 {
-	font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
-	font-size: 32px;
+	font-family: Tahoma, Arial, Sans-Serif;
+	font-size: 42px;
 	text-decoration: none;
 	padding:0;
 	margin:0;
@@ -388,6 +406,7 @@ h1.art-Logo-name, h1.art-Logo-name a, h1.art-Logo-name a:link, h1.art-Logo-name 
 	position: relative;
 	height: 42px;
 	z-index: 100;
+	font-weight: bold;
 }
 
 .art-nav .l, .art-nav .r
@@ -482,31 +501,11 @@ h1.art-Logo-name, h1.art-Logo-name a, h1.art-Logo-name a:link, h1.art-Logo-name 
 {
 	top:-30px;
 }
-.art-menu a:hover .t
-{
-	color: #F1F4F1;
-}
-
-.art-menu li:hover a .t
-{
-	color: #F1F4F1;
-}
-
-.art-menu li:hover>a .t
-{
-	color: #F1F4F1;
-}
-
-
-.art-menu a.active .l, .art-menu a.active .r
-{
-	top: -60px;
-}
-
-.art-menu a.active .t
-{
-	color: #000000;
-}
+.art-menu a:hover .t { color: #F1F4F1; }
+.art-menu li:hover a .t { color: #F1F4F1; }
+.art-menu li:hover>a .t { color: #F1F4F1; }
+.art-menu a.active .l, .art-menu a.active .r { top: -60px; }
+.art-menu a.active .t { color: #000000; }
 
 
 /* end MenuItem */
@@ -573,12 +572,14 @@ h1.art-Logo-name, h1.art-Logo-name a, h1.art-Logo-name a:link, h1.art-Logo-name 
 	background-position: 0 -32px;
 }
 
-.art-nav .art-menu ul li a:hover span, .art-nav .art-menu ul li a:hover span span
+.art-nav .art-menu ul li a:hover span,
+.art-nav .art-menu ul li a:hover span span
 {
 	color: #283329;
 }
 
-.art-nav .art-menu ul li:hover>a span, .art-nav .art-menu ul li:hover>a span span
+.art-nav .art-menu ul li:hover>a span,
+.art-nav .art-menu ul li:hover>a span span
 {
 	color: #283329;
 }
@@ -612,13 +613,17 @@ h1.art-Logo-name, h1.art-Logo-name a, h1.art-Logo-name a:link, h1.art-Logo-name 
 	padding: 6px;
 }
 
-.art-Block-tr, .art-Block-tl, .art-Block-br, .art-Block-bl, .art-Block-tc, .art-Block-bc,.art-Block-cr, .art-Block-cl
+.art-Block-tr, .art-Block-tl, 
+.art-Block-br, .art-Block-bl, 
+.art-Block-tc, .art-Block-bc,
+.art-Block-cr, .art-Block-cl
 {
 	position:absolute;
 	z-index:-1;
 }
 
-.art-Block-tr, .art-Block-tl, .art-Block-br, .art-Block-bl
+.art-Block-tr, .art-Block-tl,
+.art-Block-br, .art-Block-bl
 {
 	width: 34px;
 	height: 34px;
@@ -936,14 +941,14 @@ a img
 	text-align:left;
 	text-indent:0;
 	line-height:inherit;
-	font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+	font-family: Tahoma, Arial, Sans-Serif;
 	font-size: 22px;
 	color: #416818;
 }
 
 .art-PostHeaderIcon-wrapper, .art-PostHeaderIcon-wrapper a, .art-PostHeaderIcon-wrapper a:link, .art-PostHeaderIcon-wrapper a:visited, .art-PostHeaderIcon-wrapper a:hover
 {
-	font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+	font-family: Tahoma, Arial, Sans-Serif;
 	font-size: 22px;
 	color: #416818;
 }
@@ -953,7 +958,7 @@ a img
 /* begin PostHeader */
 .art-PostHeader a:link
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   text-decoration: none;
   text-align: left;
   color: #4E7D1C;
@@ -961,7 +966,7 @@ a img
 
 .art-PostHeader a:visited, .art-PostHeader a.visited
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   text-decoration: none;
   text-align: left;
   color: #5A725C;
@@ -969,7 +974,7 @@ a img
 
 .art-PostHeader a:hover, .art-PostHeader a.hovered
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   text-decoration: none;
   text-align: left;
   color: #396C09;
@@ -1046,42 +1051,42 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visit
 /* Start Content headings Fonts & Colors  */
 h1, h1 a, h1 a:link, h1 a:visited, h1 a:hover
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   font-size: 29px;
   color: #5B9121;
 }
 
 h2, h2 a, h2 a:link, h2 a:visited, h2 a:hover
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   font-size: 22px;
   color: #5B9121;
 }
 
 h3, h3 a, h3 a:link, h3 a:visited, h3 a:hover
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   font-size: 17px;
   color: #4F6450;
 }
 
 h4, h4 a, h4 a:link, h4 a:visited, h4 a:hover
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   font-size: 14px;
   color: #384739;
 }
 
 h5, h5 a, h5 a:link, h5 a:visited, h5 a:hover
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   font-size: 12px;
   color: #384739;
 }
 
 h6, h6 a, h6 a:link, h6 a:visited, h6 a:hover
 {
-  font-family: "Comic Sans MS", Tahoma, Arial, Sans-Serif;
+  font-family: Tahoma, Arial, Sans-Serif;
   font-size: 10px;
   color: #384739;
 }
@@ -1236,10 +1241,9 @@ input, select
 	top: -30px;
 }
 
-.art-button-wrapper.active .l, .art-button-wrapper.active .r
-{
-	top: -60px;
-}
+.art-button-wrapper.active .l,
+.art-button-wrapper.active .r
+{ top: -60px; }
 
 
 /* end Button */

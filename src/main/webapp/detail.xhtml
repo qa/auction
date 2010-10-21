@@ -25,7 +25,7 @@
 
 		<h:panelGrid rendered="#{not empty currentAuction.bids}">
 			<f:facet name="header">Nabidky</f:facet>
-			<h:dataTable var="offer" value="#{currentAuction.bids}" border="1">
+			<h:dataTable var="offer" value="#{currentAuction.bids}" border="1" styleClass="flat">
 				<h:column>#{offer.bidder.name}</h:column>
 				<h:column>#{offer.amount}</h:column>
 			</h:dataTable>
