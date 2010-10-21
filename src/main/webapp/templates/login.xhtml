@@ -8,7 +8,7 @@
 <ui:composition>
 
 	<h:form>
-		<h:panelGrid columns="1" style="width: 95%">
+		<h:panelGrid columns="1">
 			<h:outputText value="#{currentUser.name}" rendered="#{loginManager.logged}" />
 			<h:inputText id="username" value="#{username}"
 				rendered="#{not loginManager.logged}"
@@ -18,15 +18,14 @@
 			</h:inputText>
 		</h:panelGrid>
 
-		<h:commandButton id="loginButton" value="Prihlasit se"
+		<h:commandButton id="loginButton" value="Přihlásit se"
 			action="#{loginManager.login(username)}" rendered="#{not loginManager.logged}" />
 
-		<h:commandButton id="logoutButton" value="Odhlasit se"
+		<h:commandButton id="logoutButton" value="Odhlásit se"
 			action="#{loginManager.logout}" rendered="#{loginManager.logged}" />
 
-		<h:panelGrid columns="1">
-			<h:message for="username" />
-		</h:panelGrid>
+		<div><h:message for="username" /></div>
+			
 	</h:form>
 
 </ui:composition>
