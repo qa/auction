@@ -1,21 +1,31 @@
 package org.jboss.lectures.auction.entity;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.LinkedList;
+import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.OrderBy;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.*;
+import static javax.persistence.FetchType.*;
+import static javax.persistence.CascadeType.*;
 
+@Entity
 public class Auction {
 
 	private String name;
 	private User owner;
-	private BigDecimal originalPrice;
+	private List<User> bookmarkedBy = new LinkedList<User>();
+	private Long originalPrice;
 	private Bid highestBid;
 	private List<Bid> bids = new LinkedList<Bid>();
-	private int id;
-
-	{
-		this.id = this.hashCode();
-	}
+	private Long id;
 
 	public Auction() {
 	}
@@ -31,8 +41,14 @@ public class Auction {
 		this.owner = auction.getOwner();
 	}
 
-	public int getId() {
+	@Id
+	@GeneratedValue(strategy = AUTO)
+	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -42,7 +58,8 @@ public class Auction {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@ManyToOne
 	public User getOwner() {
 		return owner;
 	}
@@ -51,20 +68,37 @@ public class Auction {
 		this.owner = owner;
 	}
 
-	public void setOriginalPrice(BigDecimal originalPrice) {
+	public void setOriginalPrice(Long originalPrice) {
 		this.originalPrice = originalPrice;
 	}
 
-	public BigDecimal getOriginalPrice() {
+	public Long getOriginalPrice() {
 		return originalPrice;
 	}
 
+	@OneToOne(cascade = ALL)
 	public Bid getHighestBid() {
 		return highestBid;
 	}
-
+	
+	@OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "auction")
+	@Column(nullable = true, updatable = false)
+	@OrderBy("amount DESC")
 	public List<Bid> getBids() {
 		return bids;
+	}
+
+	public void setBids(List<Bid> bids) {
+		this.bids = bids;
+	}
+	
+	public List<User> getBookmarkedBys() {
+		return bookmarkedBy;
+	}
+	
+	@ManyToMany
+	public void setBookmarkedBys(List<User> bookmarkedBy) {
+		this.bookmarkedBy = bookmarkedBy;
 	}
 
 	public void addBid(Bid bid) {
