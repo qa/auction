@@ -8,12 +8,15 @@
 <body>
 <ui:composition>
 
-	<auction:menuItem page="list" label="Seznam aukci"
+	<auction:menuItem page="list" label="Seznam aukcí"
 		active="#{activeTab == 'list'}" />
+	<auction:menuItem page="myOverview" label="Můj přehled"
+		active="#{activeTab == 'myOverview'}"
+		rendered="#{loginManager.logged}" />
 	<auction:menuItem page="myAuctions" label="Moje aukce"
 		active="#{activeTab == 'myAuctions'}"
 		rendered="#{loginManager.logged}" />
-	<auction:menuItem page="add" label="Vlozit aukci"
+	<auction:menuItem page="add" label="Vložit aukci"
 		active="#{activeTab == 'add'}" rendered="#{loginManager.logged}" />
 
 

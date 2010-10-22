@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import org.jboss.lectures.auction.db.DatabaseStub;
 import org.jboss.lectures.auction.entity.Auction;
+import org.jboss.lectures.auction.entity.User;
 
 @ViewScoped
 @Named
@@ -41,6 +42,14 @@ public class AuctionManager {
 
 	public List<Auction> getAll() {
 		return database.getAllAuctions();
+	}
+	
+	public List<Auction> getAuctionsWinningByUser(User user) {
+		return database.getAuctionsWinningByUser(user);
+	}
+	
+	public List<Auction> getAuctionLoosingByUser(User user) {
+		return database.getAuctionsLoosingByUser(user);
 	}
 
 	public void addAuction(Auction auction) {

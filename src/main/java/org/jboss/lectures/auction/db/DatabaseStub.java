@@ -1,5 +1,6 @@
 package org.jboss.lectures.auction.db;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -100,6 +101,42 @@ public class DatabaseStub {
 		synchronized (this) {
 			auctions.add(auction);
 		}
+	}
+	
+	public List<Auction> getAuctionsWinningByUser(User user) {
+		List<Auction> winning = new ArrayList<Auction>();
+		
+		for (Auction auction : auctions) {
+			if (auction.getHighestBid() == null) {
+				continue;
+			}
+			if (auction.getHighestBid().getBidder().equals(user)) {
+				winning.add(auction);
+			}
+		}
+		
+		return winning;
+	}
+	
+	public List<Auction> getAuctionsLoosingByUser(User user) {
+		List<Auction> loosing = new ArrayList<Auction>();
+		
+		for (Auction auction : auctions) {
+			if (auction.getHighestBid() == null) {
+				continue;
+			}
+			if (auction.getHighestBid().getBidder().equals(user)) {
+				continue;
+			}
+			for (Bid bid : auction.getBids()) {
+				if (!bid.getBidder().equals(user)) {
+					loosing.add(auction);
+					break;
+				}
+			}
+		}
+		
+		return loosing;
 	}
 
 	/*
