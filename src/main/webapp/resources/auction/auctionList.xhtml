@@ -16,7 +16,7 @@
 
 	<composite:implementation>
 
-		<h:dataTable value="#{cc.attrs.auctions}" var="auct" border="1" styleClass="flat list auctions" rendered="#{cc.attrs.rendered}">
+		<h:dataTable value="#{cc.attrs.auctions}" var="auct" border="1" styleClass="flat list auctions" rendered="#{cc.attrs.rendered and not empty cc.attrs.auctions}">
 			<h:column>
 				<h:outputLink value="detail.jsf?auctionId=#{auct.id}">#{auct.name}</h:outputLink>
 			</h:column>

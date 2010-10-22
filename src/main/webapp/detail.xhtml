@@ -28,7 +28,7 @@
 			<h:outputText value="#{currentAuction.originalPrice}" />
 
 			<h:outputLabel value="Aktuální cena:" rendered="#{not empty currentAuction.highestBid}" />
-			<h:outputText value="#{currentAuction.highestBid.amount} (#{currentAuction.highestBid.bidder})" rendered="#{not empty currentAuction.highestBid}" />
+			<h:outputText value="#{currentAuction.highestBid.amount} (#{currentAuction.highestBid.bidder.name})" rendered="#{not empty currentAuction.highestBid}" />
 		</h:panelGrid>
 
 

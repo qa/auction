@@ -15,7 +15,11 @@
 
 		<h2>Moje aukce</h2>
 		
-		<a:auctionList auctions="#{auctionManager.getAuctionsByOwner(currentUser)}" rendered="#{loginManager.logged}" />
+		<a:auctionList auctions="#{currentUser.auctions}" rendered="#{loginManager.logged}" />
+		
+		<h2>Moje oblíbené</h2>
+		
+		<a:auctionList auctions="#{currentUser.favorites}" rendered="#{loginManager.logged}" />
 
 	</ui:define>
 
