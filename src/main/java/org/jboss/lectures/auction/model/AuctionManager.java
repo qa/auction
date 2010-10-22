@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,7 +12,7 @@ import org.jboss.lectures.auction.db.DatabaseStub;
 import org.jboss.lectures.auction.entity.Auction;
 import org.jboss.lectures.auction.entity.User;
 
-@RequestScoped
+@ViewScoped
 @Named
 public class AuctionManager {
 

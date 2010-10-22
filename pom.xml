@@ -87,5 +87,10 @@
 			<groupId>org.richfaces.ui</groupId>
 			<artifactId>richfaces-components-ui</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>org.jboss.seam.faces</groupId>
+            <artifactId>seam-faces</artifactId>
+            <version>3.0.0.Alpha3</version>
+        </dependency>
 	</dependencies>
 </project>

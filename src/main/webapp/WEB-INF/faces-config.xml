@@ -4,6 +4,21 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 	<navigation-rule>
+		<navigation-case>
+			<from-action>#{loginManager.login(username)}</from-action>
+			<if>#{true}</if>
+			<to-view-id>#{facesContext.viewRoot.viewId}</to-view-id>
+			<redirect include-view-params="true" />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{loginManager.logout}</from-action>
+			<if>#{true}</if>
+			<to-view-id>#{facesContext.viewRoot.viewId}</to-view-id>
+			<redirect include-view-params="true" />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
 		<from-view-id>/add.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{auctionManager.addAuction(newAuction)}</from-action>
@@ -12,4 +27,7 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
+
+
+
 </faces-config>
