@@ -160,8 +160,6 @@ public class DatabaseStub {
 			Bid bid = generateBid(auction);
 			bid.setId(bidSequenceId++);
 			
-			auction.addBid(bid);
-			
 			if (((Long.MAX_VALUE / 2) + (auctionSequenceId * bidSequenceId)) % 5 > 1) {
 				if (!user.getFavorites().contains(auction)) {
 					bid.getBidder().getFavorites().add(auction);

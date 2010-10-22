@@ -19,7 +19,7 @@ public class Bid {
 		this.auction = auction;
 		this.amount = amount;
 		
-		auction.getBids().add(this);
+		auction.addBid(this);
 	}
 
 	@Id
