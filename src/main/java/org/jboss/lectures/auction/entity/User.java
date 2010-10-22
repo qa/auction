@@ -17,22 +17,22 @@ import javax.persistence.OneToMany;
 @Entity
 public class User {
 
-	private final String name;
+	private String email;
 	private List<Bid> bids = new ArrayList<Bid>();
 	private List<Auction> auctions = new ArrayList<Auction>();
 	private List<Auction> favorites = new ArrayList<Auction>();
 	private Long id;
 	
 	public User() {
-		this.name = null;
+		this.email = null;
 	}
 
 	public User(User user) {
-		this.name = user.getName();
+		this.email = user.getEmail();
 	}
 
-	public User(String name) {
-		this.name = name;
+	public User(String email) {
+		this.email = email;
 	}
 
 	@Id
@@ -44,9 +44,13 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
+	public String getEmail() {
+		return email;
+	}
+	
 	public String getName() {
-		return name;
+		return getEmail().replaceAll("@.*$", "");
 	}
 	
 	@OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "user")
@@ -83,7 +87,7 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+		result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
 		return result;
 	}
 
@@ -97,16 +101,16 @@ public class User {
 			return false;
 		}
 		User other = (User) obj;
-		if (getName() == null) {
-			if (other.getName() != null)
+		if (getEmail() == null) {
+			if (other.getEmail() != null)
 				return false;
-		} else if (!getName().equals(other.getName()))
+		} else if (!getEmail().equals(other.getEmail()))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + "]";
+		return "User [name=" + email + "]";
 	}
 }

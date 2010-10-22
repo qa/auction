@@ -24,9 +24,9 @@ public class DatabaseStub {
 
 	@PostConstruct
 	public void initializeModel() {
-		users.add(generateUser("Lukas"));
-		users.add(generateUser("Ondra"));
-		users.add(generateUser("Martin"));
+		users.add(generateUser("lfryc@redhat.com"));
+		users.add(generateUser("ozizka@redhat.com"));
+		users.add(generateUser("mvecera@redhat.com"));
 
 		auctions.add(generateAuction("Pet svestek"));
 		auctions.add(generateAuction("Rohlik za odvoz"));
@@ -68,7 +68,7 @@ public class DatabaseStub {
 
 	public synchronized User findUserByName(String name) {
 		for (User user : users) {
-			if (name.equals(user.getName())) {
+			if (name.equals(user.getEmail())) {
 				return user;
 			}
 		}
@@ -142,8 +142,8 @@ public class DatabaseStub {
 	/*
 	 * Model Generation
 	 */
-	public User generateUser(String name) {
-		User user = new User(name);
+	public User generateUser(String email) {
+		User user = new User(email);
 		user.setId(userSequenceId++);
 		return user;
 	}

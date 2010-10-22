@@ -9,22 +9,24 @@
 
 	<h:form>
 		<h:panelGrid columns="1">
-			<h:outputText value="#{currentUser.name}" rendered="#{loginManager.logged}" />
-			<h:inputText id="username" value="#{username}"
+			<h:outputLabel value="E-mail:" />
+		
+			<h:outputText value="#{currentUser.email}" rendered="#{loginManager.logged}" />
+			<h:inputText id="emailInput" value="#{loginEmail}"
 				rendered="#{not loginManager.logged}"
-				validatorMessage="Uzivatelske jmeno musi byt neprazdne prihlasovaci jmeno slozene pouze z malych znaku">
+				validatorMessage="Validní e-mail je vyžadován k přihlášení">
 				<f:validateRequired />
-				<f:validateRegex pattern="[a-zA-Z]+" />
+				<f:validateRegex pattern="^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$" />
 			</h:inputText>
 		</h:panelGrid>
 
 		<h:commandButton id="loginButton" value="Přihlásit se"
-			action="#{loginManager.login(username)}" rendered="#{not loginManager.logged}" />
+			action="#{loginManager.login(loginEmail)}" rendered="#{not loginManager.logged}" />
 
 		<h:commandButton id="logoutButton" value="Odhlásit se"
 			action="#{loginManager.logout}" rendered="#{loginManager.logged}" />
 
-		<div><h:message for="username" /></div>
+		<div><h:message for="emailInput" /></div>
 			
 	</h:form>
 
