@@ -2,7 +2,7 @@ package org.jboss.lectures.auction.model;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ public class LoginManager implements Serializable {
 
 	@Produces
 	@Named
-	@RequestScoped
+	@Dependent
 	public User getCurrentUser() {
 		return currentUser;
 	}
