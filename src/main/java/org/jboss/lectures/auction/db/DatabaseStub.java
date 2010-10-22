@@ -93,13 +93,15 @@ public class DatabaseStub {
 		throw new IllegalStateException("no such auctionId " + auctionId);
 	}
 
-	public void addAuction(Auction auction) {
+	public Auction createAuction(Auction auction) {
 		auction = new Auction(auction);
 		auction.setId(auctionSequenceId++);
 
 		synchronized (this) {
 			auctions.add(auction);
 		}
+		
+		return auction;
 	}
 	
 	public List<Auction> getAuctionsWinningByUser(User user) {

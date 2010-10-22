@@ -16,7 +16,7 @@ import org.jboss.lectures.auction.entity.User;
 @ViewScoped
 @Named
 public class AuctionManager {
-
+	
 	private Auction currentAuction = null;
 
 	@Inject
@@ -57,8 +57,8 @@ public class AuctionManager {
 			throw new IllegalStateException(
 					"user must be logged in order to add auction");
 		}
-		database.addAuction(auction);
-		currentAuction = auction;
+		auction.setOwner(loginManager.getCurrentUser());
+		currentAuction = database.createAuction(auction);
 	}
 
 	@Produces
