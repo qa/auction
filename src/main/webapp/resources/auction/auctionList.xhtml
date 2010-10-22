@@ -21,15 +21,15 @@
 				<h:outputLink value="detail.jsf?auctionId=#{auct.id}">#{auct.name}</h:outputLink>
 			</h:column>
 			<h:column>
-				<f:facet name="header">Drazitel</f:facet>
+				<f:facet name="header">Dražitel</f:facet>
 				#{auct.owner.name}
 			</h:column>
 			<h:column>
-				<f:facet name="header">Pocatecni cena</f:facet>
+				<f:facet name="header">Počáteční cena</f:facet>
 				#{auct.originalPrice}
 			</h:column>
 			<h:column>
-				<f:facet name="header">Nejvyssi nabidka</f:facet>
+				<f:facet name="header">Nejvyšší nabídka</f:facet>
 				<h:outputText value="#{auct.highestBid.bidder.name}: #{auct.highestBid.amount}" rendered="#{not empty auct.bids}" />
 				<h:outputText value="-" rendered="#{empty auct.bids}" />
 			</h:column>

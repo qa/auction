@@ -13,7 +13,7 @@
 	
 	<ui:define name="content">
 
-		<h2>Vítězné aukce</h2>
+		<h2>Vítězící aukce</h2>
 		
 		<a:auctionList auctions="#{auctionManager.getAuctionsWinningByUser(currentUser)}" rendered="#{loginManager.logged}" />
 		

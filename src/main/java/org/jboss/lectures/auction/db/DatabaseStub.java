@@ -28,32 +28,31 @@ public class DatabaseStub {
 		users.add(generateUser("ozizka@redhat.com"));
 		users.add(generateUser("mvecera@redhat.com"));
 
-		auctions.add(generateAuction("Pet svestek"));
-		auctions.add(generateAuction("Rohlik za odvoz"));
-		auctions.add(generateAuction("Osmismerky"));
-		auctions.add(generateAuction("Vodovaha"));
-		auctions.add(generateAuction("Prirucka mladych svistu"));
+		auctions.add(generateAuction("Pět švestek"));
+		auctions.add(generateAuction("Rohlík za odvoz"));
+		auctions.add(generateAuction("Osmisměrky"));
+		auctions.add(generateAuction("Vodováha"));
+		auctions.add(generateAuction("Příručka mladých svišťů"));
 		auctions.add(generateAuction("Leporelo"));
-		auctions.add(generateAuction("Neznama hmota"));
-		auctions.add(generateAuction("Detska sedacka"));
+		auctions.add(generateAuction("Neznámá hmota"));
+		auctions.add(generateAuction("Dětská sedačka"));
 		auctions.add(generateAuction("Velorex"));
-		auctions.add(generateAuction("Tajemny klic"));
-		auctions.add(generateAuction("Zamek"));
-		auctions.add(generateAuction("Prkenna ohrada"));
-		auctions.add(generateAuction("Past na mysi"));
-		auctions.add(generateAuction("Nabijeci baterie"));
-		auctions.add(generateAuction("Plastova vicka"));
-		auctions.add(generateAuction("Inkoustove naplne"));
-		auctions.add(generateAuction("Myci houba"));
+		auctions.add(generateAuction("Tajemný klíč"));
+		auctions.add(generateAuction("Zámek"));
+		auctions.add(generateAuction("Prkenná ohrada"));
+		auctions.add(generateAuction("Past na myši"));
+		auctions.add(generateAuction("Nabíjecí baterie"));
+		auctions.add(generateAuction("Plastová víčka"));
+		auctions.add(generateAuction("Inkoustové náplně"));
+		auctions.add(generateAuction("Mycí houba"));
 		auctions.add(generateAuction("Violoncello"));
-		auctions.add(generateAuction("Pruvodce pokojovych plodin"));
-		auctions.add(generateAuction("Socove kafe"));
-		auctions.add(generateAuction("Olejnicka"));
-		auctions.add(generateAuction("Hadi akvarium"));
-		auctions.add(generateAuction("Dvojdilne tramovi"));
-		auctions.add(generateAuction("Psi bouda"));
-
-		auctions.add(generateAuction("Stare kolo"));
+		auctions.add(generateAuction("Průvodce pokojových plodin"));
+		auctions.add(generateAuction("Socové kafe"));
+		auctions.add(generateAuction("Olejnička"));
+		auctions.add(generateAuction("Hadí akvárium"));
+		auctions.add(generateAuction("Dvojdílné trámoví"));
+		auctions.add(generateAuction("Psí bouda"));
+		auctions.add(generateAuction("Staré kolo"));
 	}
 
 	/*
