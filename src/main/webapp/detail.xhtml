@@ -14,33 +14,34 @@
 	</ui:define>
 
 	<ui:define name="content">
-	<div class="auction">
 
 		<h2>Detail aukce "#{currentAuction.name}"</h2>
 
-		<table class="data">
-			<tr>
-				<td class="id">ID:                </td><td>#{currentAuction.id}</td>
-			</tr><tr>
-				<td class="owner">Vlastník:       </td><td>#{currentAuction.owner.name}</td>
-			</tr><tr>
-				<td class="price">Počáteční cena: </td><td>#{currentAuction.originalPrice}</td>
-			</tr><tr>
-				<td class="price">Aktuální cena:  </td><td style="color: red">TODO!</td>
-			</tr>			
-		</table>
-		
-		
-		<h:panelGroup rendered="#{not empty currentAuction.bids}">		
+		<h:panelGrid columns="2">
+			<h:outputLabel value="ID:" />
+			<h:outputText value="#{currentAuction.id}" />
+
+			<h:outputLabel value="Vlastník:" />
+			<h:outputText value="#{currentAuction.owner.name}" />
+
+			<h:outputLabel value="Počáteční cena:" />
+			<h:outputText value="#{currentAuction.originalPrice}" />
+
+			<h:outputLabel value="Aktuální cena:" rendered="#{not empty currentAuction.highestBid}" />
+			<h:outputText value="#{currentAuction.highestBid.amount} (#{currentAuction.highestBid.bidder})" rendered="#{not empty currentAuction.highestBid}" />
+		</h:panelGrid>
+
+
+		<h:panelGroup rendered="#{not empty currentAuction.bids}">
 			<h3>Nabídky</h3>
-			
-			<h:dataTable var="offer" value="#{currentAuction.bids}" border="1" styleClass="flat">
+
+			<h:dataTable var="offer" value="#{currentAuction.bids}" border="1"
+				styleClass="flat">
 				<h:column>#{offer.bidder.name}</h:column>
 				<h:column>#{offer.amount}</h:column>
 			</h:dataTable>
 		</h:panelGroup>
 
-	</div>
 	</ui:define>
 
 </ui:composition>
