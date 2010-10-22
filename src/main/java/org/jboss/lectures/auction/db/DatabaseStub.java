@@ -1,7 +1,5 @@
 package org.jboss.lectures.auction.db;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -114,7 +112,7 @@ public class DatabaseStub {
 	 */
 	private Auction generateAuction(String auctionName) {
 		User user = generateUserForAuction(auctionName);
-		BigDecimal originalPrice = generateOriginalPrice(auctionName);
+		Long originalPrice = generateOriginalPrice(auctionName);
 
 		Auction auction = new Auction(auctionName, user);
 		auction.setOriginalPrice(originalPrice);
@@ -130,23 +128,23 @@ public class DatabaseStub {
 		return users.get(Math.abs(auctionName.hashCode()) % users.size());
 	}
 
-	private BigDecimal generateOriginalPrice(String auctionName) {
-		return new BigDecimal(20 + (Math.abs(auctionName.hashCode()) % 200));
+	private Long generateOriginalPrice(String auctionName) {
+		return 20l + (Math.abs(auctionName.hashCode()) % 200);
 	}
 
 	private Bid generateBid(Auction auction) {
-		final BigDecimal originalPrice = auction.getOriginalPrice();
+		final Long originalPrice = auction.getOriginalPrice();
 		final Bid highestBid = auction.getHighestBid();
 		final User owner = auction.getOwner();
 
-		BigDecimal newBidAmount;
-		int divisor = 2 + Math.abs(originalPrice.hashCode()) % 3;
-		BigDecimal augend = originalPrice.divide(new BigDecimal(divisor), RoundingMode.FLOOR);
+		Long newBidAmount;
+		long divisor = 2l + Math.abs(originalPrice.hashCode()) % 3;
+		Long augend = originalPrice / divisor;
 
 		if (highestBid == null) {
-			newBidAmount = originalPrice.add(augend);
+			newBidAmount = originalPrice + augend;
 		} else {
-			newBidAmount = highestBid.getAmount().add(augend);
+			newBidAmount = highestBid.getAmount() + augend;
 		}
 
 		List<User> possibleUsers = new LinkedList<User>(users);
@@ -158,6 +156,6 @@ public class DatabaseStub {
 		int userIndex = Math.abs(newBidAmount.hashCode()) % possibleUsers.size();
 		User newBidder = possibleUsers.get(userIndex);
 
-		return new Bid(newBidder, newBidAmount);
+		return new Bid(newBidder, auction, newBidAmount);
 	}
 }

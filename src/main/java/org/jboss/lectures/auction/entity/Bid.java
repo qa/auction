@@ -1,14 +1,11 @@
 package org.jboss.lectures.auction.entity;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.LinkedList;
+import static javax.persistence.GenerationType.AUTO;
+
 import javax.persistence.Entity;
-import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.*;
 
 @Entity
 public class Bid {

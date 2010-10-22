@@ -31,7 +31,7 @@ public class AuctionManager {
 		return currentAuction;
 	}
 
-	public Integer getCurrentAuctionId() {
+	public Long getCurrentAuctionId() {
 		return (currentAuction == null) ? null : currentAuction.getId();
 	}
 

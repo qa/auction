@@ -1,6 +1,5 @@
 package org.jboss.lectures.auction.entity;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.LinkedList;
 import javax.persistence.Entity;
