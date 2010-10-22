@@ -2,6 +2,7 @@ package org.jboss.lectures.auction.model;
 
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ViewScoped;
@@ -10,7 +11,6 @@ import javax.inject.Named;
 
 import org.jboss.lectures.auction.db.DatabaseStub;
 import org.jboss.lectures.auction.entity.Auction;
-import org.jboss.lectures.auction.entity.User;
 
 @ViewScoped
 @Named
@@ -25,7 +25,7 @@ public class AuctionManager {
 	private LoginManager loginManager;
 
 	@Produces
-	@RequestScoped
+	@Dependent
 	@Named
 	public Auction getCurrentAuction() {
 		return currentAuction;
@@ -35,16 +35,12 @@ public class AuctionManager {
 		return (currentAuction == null) ? null : currentAuction.getId();
 	}
 
-	public void setCurrentAuctionId(Integer currentId) {
+	public void setCurrentAuctionId(Long currentId) {
 		this.currentAuction = database.getAuctionById(currentId);
 	}
 
 	public List<Auction> getAll() {
 		return database.getAllAuctions();
-	}
-	
-	public List<Auction> getAuctionsByOwner(User owner) {
-		return database.getAuctionsByOwner(owner);
 	}
 
 	public void addAuction(Auction auction) {
@@ -52,7 +48,6 @@ public class AuctionManager {
 			throw new IllegalStateException(
 					"user must be logged in order to add auction");
 		}
-		auction.setOwner(loginManager.getCurrentUser());
 		database.addAuction(auction);
 		currentAuction = auction;
 	}
