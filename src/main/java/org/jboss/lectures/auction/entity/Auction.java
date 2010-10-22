@@ -1,29 +1,31 @@
 package org.jboss.lectures.auction.entity;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.AUTO;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedList;
-import javax.persistence.Entity;
+
 import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OrderBy;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.ManyToMany;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.*;
-import static javax.persistence.FetchType.*;
-import static javax.persistence.CascadeType.*;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Auction {
 
 	private String name;
 	private User owner;
-	private List<User> bookmarkedBy = new LinkedList<User>();
 	private Long originalPrice;
 	private Bid highestBid;
-	private List<Bid> bids = new LinkedList<Bid>();
+	private List<Bid> bids = new ArrayList<Bid>();
+	private List<User> bookmarkedBy = new ArrayList<User>();
 	private Long id;
 
 	public Auction() {
@@ -32,12 +34,13 @@ public class Auction {
 	public Auction(String name, User owner) {
 		this.name = name;
 		this.owner = owner;
+
+		owner.getAuctions().add(this);
 	}
 
 	public Auction(Auction auction) {
+		this(auction.getName(), auction.getOwner());
 		this.id = auction.getId();
-		this.name = auction.getName();
-		this.owner = auction.getOwner();
 	}
 
 	@Id
@@ -57,7 +60,7 @@ public class Auction {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@ManyToOne
 	public User getOwner() {
 		return owner;
@@ -79,7 +82,7 @@ public class Auction {
 	public Bid getHighestBid() {
 		return highestBid;
 	}
-	
+
 	@OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "auction")
 	@Column(nullable = true, updatable = false)
 	@OrderBy("amount DESC")
@@ -90,11 +93,11 @@ public class Auction {
 	public void setBids(List<Bid> bids) {
 		this.bids = bids;
 	}
-	
+
 	public List<User> getBookmarkedBys() {
 		return bookmarkedBy;
 	}
-	
+
 	@ManyToMany
 	public void setBookmarkedBys(List<User> bookmarkedBy) {
 		this.bookmarkedBy = bookmarkedBy;
@@ -120,7 +123,33 @@ public class Auction {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Auction)) {
+			return false;
+		}
+		Auction other = (Auction) obj;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
-		return "Auction [name=" + name + ", id=" + id + "]";
+		return "Auction [name=" + name + ", owner=" + owner + "]";
 	}
 }

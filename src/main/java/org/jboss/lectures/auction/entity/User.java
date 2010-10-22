@@ -1,24 +1,26 @@
 package org.jboss.lectures.auction.entity;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.AUTO;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedList;
-import javax.persistence.Entity;
+
 import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToMany;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.*;
-import static javax.persistence.FetchType.*;
-import static javax.persistence.CascadeType.*;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
 
 	private final String name;
-	private List<Bid> bids = new LinkedList<Bid>();
-	private List<Auction> auctions = new LinkedList<Auction>();
-	private List<Auction> favorites = new LinkedList<Auction>();
+	private List<Bid> bids = new ArrayList<Bid>();
+	private List<Auction> auctions = new ArrayList<Auction>();
+	private List<Auction> favorites = new ArrayList<Auction>();
 	private Long id;
 	
 	public User() {
@@ -81,7 +83,7 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
 		return result;
 	}
 
@@ -91,12 +93,20 @@ public class User {
 			return true;
 		if (obj == null)
 			return false;
+		if (!(obj instanceof User)) {
+			return false;
+		}
 		User other = (User) obj;
-		if (name == null) {
+		if (getName() == null) {
 			if (other.getName() != null)
 				return false;
-		} else if (!name.equals(other.getName()))
+		} else if (!getName().equals(other.getName()))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + "]";
 	}
 }

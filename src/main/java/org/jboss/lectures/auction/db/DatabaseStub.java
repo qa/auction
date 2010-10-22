@@ -16,13 +16,16 @@ public class DatabaseStub {
 	private List<User> users = new LinkedList<User>();
 
 	private List<Auction> auctions = new LinkedList<Auction>();
+	
+	private volatile long userSequenceId = 1; 
+	private volatile long auctionSequenceId = 1;
+	private volatile long bidSequenceId = 1;
 
 	@PostConstruct
 	public void initializeModel() {
-
-		users.add(new User("Lukas"));
-		users.add(new User("Ondra"));
-		users.add(new User("Martin"));
+		users.add(generateUser("Lukas"));
+		users.add(generateUser("Ondra"));
+		users.add(generateUser("Martin"));
 
 		auctions.add(generateAuction("Pet svestek"));
 		auctions.add(generateAuction("Rohlik za odvoz"));
@@ -58,12 +61,13 @@ public class DatabaseStub {
 
 	public synchronized void addUser(User user) {
 		user = new User(user);
+		user.setId(userSequenceId++);
 		users.add(user);
 	}
 
 	public synchronized User findUserByName(String name) {
 		for (User user : users) {
-			if (name == user.getName()) {
+			if (name.equals(user.getName())) {
 				return user;
 			}
 		}
@@ -79,17 +83,7 @@ public class DatabaseStub {
 		return Collections.unmodifiableList(auctions);
 	}
 
-	public synchronized List<Auction> getAuctionsByOwner(User owner) {
-		List<Auction> result = new LinkedList<Auction>();
-		for (Auction auction : auctions) {
-			if (auction.getOwner().equals(owner)) {
-				result.add(auction);
-			}
-		}
-		return Collections.unmodifiableList(result);
-	}
-
-	public Auction getAuctionById(int auctionId) {
+	public Auction getAuctionById(long auctionId) {
 		for (Auction auction : auctions) {
 			if (auctionId == auction.getId()) {
 				return auction;
@@ -101,6 +95,7 @@ public class DatabaseStub {
 
 	public void addAuction(Auction auction) {
 		auction = new Auction(auction);
+		auction.setId(auctionSequenceId++);
 
 		synchronized (this) {
 			auctions.add(auction);
@@ -108,17 +103,34 @@ public class DatabaseStub {
 	}
 
 	/*
-	 * Auction Generation
+	 * Model Generation
 	 */
+	public User generateUser(String name) {
+		User user = new User(name);
+		user.setId(userSequenceId++);
+		return user;
+	}
+	
 	private Auction generateAuction(String auctionName) {
 		User user = generateUserForAuction(auctionName);
 		Long originalPrice = generateOriginalPrice(auctionName);
 
 		Auction auction = new Auction(auctionName, user);
+		auction.setId(auctionSequenceId++);
 		auction.setOriginalPrice(originalPrice);
 
 		for (int i = 0; i < auctionName.hashCode() % 5; i++) {
-			auction.addBid(generateBid(auction));
+			Bid bid = generateBid(auction);
+			bid.setId(bidSequenceId++);
+			
+			auction.addBid(bid);
+			
+			if (((Long.MAX_VALUE / 2) + (auctionSequenceId * bidSequenceId)) % 5 > 1) {
+				if (!user.getFavorites().contains(auction)) {
+					bid.getBidder().getFavorites().add(auction);
+					auction.getBookmarkedBys().add(bid.getBidder());
+				}
+			}
 		}
 
 		return auction;
