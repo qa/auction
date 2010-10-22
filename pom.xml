@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lectures</groupId>
-	<artifactId>practice02-jsf</artifactId>
+	<artifactId>practice02-model</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
