@@ -37,7 +37,5 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
-
-
-
+	
 </faces-config>
