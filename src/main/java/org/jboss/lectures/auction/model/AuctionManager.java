@@ -77,6 +77,14 @@ public class AuctionManager {
 		}
 		new Bid(loginManager.getCurrentUser(), currentAuction, bidAmount);
 	}
+	
+	public void addFavorite(User user, Auction auction) {
+		database.addFavorite(user, auction);
+	}
+	
+	public void removeFavorite(User user, Auction auction) {
+		database.removeFavorite(user, auction);
+	}
 
 	@Produces
 	@RequestScoped

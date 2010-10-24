@@ -5,13 +5,25 @@
 
 	<navigation-rule>
 		<navigation-case>
-			<from-action>#{loginManager.login(username)}</from-action>
+			<from-action>#{loginManager.login(loginEmail)}</from-action>
 			<if>#{true}</if>
 			<to-view-id>#{facesContext.viewRoot.viewId}</to-view-id>
 			<redirect include-view-params="true" />
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{loginManager.logout}</from-action>
+			<if>#{true}</if>
+			<to-view-id>#{facesContext.viewRoot.viewId}</to-view-id>
+			<redirect include-view-params="true" />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{auctionManager.addFavorite(currentUser, currentAuction)}</from-action>
+			<if>#{true}</if>
+			<to-view-id>#{facesContext.viewRoot.viewId}</to-view-id>
+			<redirect include-view-params="true" />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{auctionManager.removeFavorite(currentUser, currentAuction)}</from-action>
 			<if>#{true}</if>
 			<to-view-id>#{facesContext.viewRoot.viewId}</to-view-id>
 			<redirect include-view-params="true" />

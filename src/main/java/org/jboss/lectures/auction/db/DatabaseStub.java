@@ -139,6 +139,20 @@ public class DatabaseStub {
 		
 		return loosing;
 	}
+	
+	/*
+	 * Favorites
+	 */
+	
+	public void addFavorite(User user, Auction auction) {
+		user.getFavorites().add(auction);
+		auction.getBookmarkedBys().add(user);
+	}
+	
+	public void removeFavorite(User user, Auction auction) {
+		user.getFavorites().remove(auction);
+		auction.getBookmarkedBys().remove(user);
+	}
 
 	/*
 	 * Model Generation

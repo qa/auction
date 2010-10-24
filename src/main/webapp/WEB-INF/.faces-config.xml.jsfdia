@@ -22,15 +22,25 @@
  <PROCESS-ITEM NAME="rules:" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
-    ID=":#{loginManager.login(username)}:#{facesContext.viewRoot.viewId}"
+    ID=":#{loginManager.login(loginEmail)}:#{facesContext.viewRoot.viewId}"
     NAME="output" PATH="#{facesContext.viewRoot.viewId}"
     TARGET="rules:#{facesContext.viewRoot.viewId}"
-    TITLE="#{loginManager.login(username)}:[any]" model-entity="JSFProcessItemOutput"/>
+    TITLE="#{loginManager.login(loginEmail)}:[any]" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID=":#{loginManager.logout}:#{facesContext.viewRoot.viewId}"
     NAME="output1" PATH="#{facesContext.viewRoot.viewId}"
     TARGET="rules:#{facesContext.viewRoot.viewId}"
     TITLE="#{loginManager.logout}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{auctionManager.addFavorite(currentUser, currentAuction)}:#{facesContext.viewRoot.viewId}"
+    NAME="output2" PATH="#{facesContext.viewRoot.viewId}"
+    TARGET="rules:#{facesContext.viewRoot.viewId}"
+    TITLE="#{auctionManager.addFavorite(currentUser, currentAuction)}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{auctionManager.removeFavorite(currentUser, currentAuction)}:#{facesContext.viewRoot.viewId}"
+    NAME="output3" PATH="#{facesContext.viewRoot.viewId}"
+    TARGET="rules:#{facesContext.viewRoot.viewId}"
+    TITLE="#{auctionManager.removeFavorite(currentUser, currentAuction)}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#{facesContext.viewRoot.viewId}"

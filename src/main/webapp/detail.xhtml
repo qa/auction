@@ -14,44 +14,72 @@
 	</ui:define>
 
 	<ui:define name="content">
-		
+
 		<h2>Detail aukce</h2>
-		
-		<h3>#{currentAuction.name}</h3>
 
-		<h:panelGrid columns="2">
-			<h:outputLabel value="ID:" />
-			<h:outputText value="#{currentAuction.id}" />
+		<h:panelGroup layout="div"
+			rendered="#{auctionManager.currentAuction != null}">
 
-			<h:outputLabel value="Vlastník:" />
-			<h:outputText value="#{currentAuction.owner.name}" />
+			<h3>#{currentAuction.name}</h3>
 
-			<h:outputLabel value="Počáteční cena:" />
-			<h:outputText value="#{currentAuction.originalPrice}" />
+			<p><h:form rendered="#{loginManager.logged}">
+				<h:commandButton
+					action="#{auctionManager.addFavorite(currentUser, currentAuction)}"
+					value="Přidat do oblíbených"
+					rendered="#{not currentUser.favorites.contains(currentAuction)}" />
+				<h:commandButton
+					action="#{auctionManager.removeFavorite(currentUser, currentAuction)}"
+					value="Odebrat z oblíbených"
+					rendered="#{currentUser.favorites.contains(currentAuction)}" />
+			</h:form></p>
 
-			<h:outputLabel value="Aktuální cena:" rendered="#{not empty currentAuction.highestBid}" />
-			<h:outputText value="#{currentAuction.highestBid.amount} (#{currentAuction.highestBid.bidder.name})" rendered="#{not empty currentAuction.highestBid}" />
-			
-			<h:outputLabel value="Popis aukce:" />
-			<h:outputText value="#{currentAuction.description}" />
-			
-			<h:outputLabel value="Nabídka:" rendered="#{loginManager.logged}" />
-			<h:form rendered="#{loginManager.logged}">
-				<h:inputText id="bidAmountInput" value="#{bidAmount}" validator="#{auctionManager.validateBid}" />
-				<h:commandButton value="Přisadit" action="#{auctionManager.addBid(bidAmount)}" />
-				<h:message for="bidAmountInput" style="color: red" />
-			</h:form>
-		</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="ID:" />
+				<h:outputText value="#{currentAuction.id}" />
+
+				<h:outputLabel value="Vlastník:" />
+				<h:outputText value="#{currentAuction.owner.name}" />
+
+				<h:outputLabel value="Počáteční cena:" />
+				<h:outputText value="#{currentAuction.originalPrice}" />
+
+				<h:outputLabel value="Aktuální cena:"
+					rendered="#{not empty currentAuction.highestBid}" />
+				<h:outputText
+					value="#{currentAuction.highestBid.amount} (#{currentAuction.highestBid.bidder.name})"
+					rendered="#{not empty currentAuction.highestBid}" />
+
+				<h:outputLabel value="Popis aukce:" />
+				<h:outputText value="#{currentAuction.description}" />
+
+				<h:outputLabel value="Nabídka:" rendered="#{loginManager.logged}" />
+				<h:form rendered="#{loginManager.logged}">
+					<h:inputText id="bidAmountInput" value="#{bidAmount}"
+						validator="#{auctionManager.validateBid}" />
+					<h:commandButton value="Přisadit"
+						action="#{auctionManager.addBid(bidAmount)}" />
+					<h:message for="bidAmountInput" style="color: red" />
+				</h:form>
+			</h:panelGrid>
 
 
-		<h:panelGroup rendered="#{not empty currentAuction.bids}">
-			<h3>Historie nabídek</h3>
+			<h:panelGroup rendered="#{not empty currentAuction.bids}">
+				<h3>Historie nabídek</h3>
 
-			<h:dataTable var="offer" value="#{currentAuction.bids}" border="1"
-				styleClass="flat">
-				<h:column>#{offer.bidder.name}</h:column>
-				<h:column>#{offer.amount}</h:column>
-			</h:dataTable>
+				<h:dataTable var="offer" value="#{currentAuction.bids}" border="1"
+					styleClass="flat">
+					<h:column>#{offer.bidder.name}</h:column>
+					<h:column>#{offer.amount}</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+
+		</h:panelGroup>
+
+		<h:panelGroup layout="div"
+			rendered="#{auctionManager.currentAuction == null}">
+
+			<p>Nebyla vybrána žádná aukce</p>
+
 		</h:panelGroup>
 
 	</ui:define>
