@@ -130,7 +130,7 @@ public class DatabaseStub {
 				continue;
 			}
 			for (Bid bid : auction.getBids()) {
-				if (!bid.getBidder().equals(user)) {
+				if (bid.getBidder().equals(user)) {
 					loosing.add(auction);
 					break;
 				}
