@@ -22,6 +22,7 @@ public class Auction {
 
 	private String name;
 	private User owner;
+	private String description;
 	private Long originalPrice;
 	private Bid highestBid;
 	private List<Bid> bids = new ArrayList<Bid>();
@@ -41,6 +42,8 @@ public class Auction {
 	public Auction(Auction auction) {
 		this(auction.getName(), auction.getOwner());
 		this.id = auction.getId();
+		this.description = auction.getDescription();
+		this.originalPrice = auction.getOriginalPrice();
 	}
 
 	@Id
@@ -68,6 +71,14 @@ public class Auction {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setOriginalPrice(Long originalPrice) {

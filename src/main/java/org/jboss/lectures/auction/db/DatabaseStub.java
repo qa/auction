@@ -156,6 +156,7 @@ public class DatabaseStub {
 		Auction auction = new Auction(auctionName, user);
 		auction.setId(auctionSequenceId++);
 		auction.setOriginalPrice(originalPrice);
+		auction.setDescription("Zde se bude dražit o " + auctionName.toLowerCase() + "...");
 
 		for (int i = 0; i < auctionName.hashCode() % 5; i++) {
 			Bid bid = generateBid(auction);
