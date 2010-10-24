@@ -27,6 +27,16 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/detail.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{auctionManager.addBid(bidAmount)}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/detail.xhtml</to-view-id>
+			<redirect include-view-params="true" />
+		</navigation-case>
+	</navigation-rule>
 
 
 

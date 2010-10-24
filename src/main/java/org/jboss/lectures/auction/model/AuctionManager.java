@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import org.jboss.lectures.auction.db.DatabaseStub;
 import org.jboss.lectures.auction.entity.Auction;
+import org.jboss.lectures.auction.entity.Bid;
 import org.jboss.lectures.auction.entity.User;
 
 @ViewScoped
@@ -59,6 +60,18 @@ public class AuctionManager {
 		}
 		auction.setOwner(loginManager.getCurrentUser());
 		currentAuction = database.createAuction(auction);
+	}
+	
+	public void addBid(long bidAmount) {
+		if (!loginManager.isLogged()) {
+			throw new IllegalStateException(
+					"user must be logged in order to add bid");
+		}
+		if (currentAuction == null) {
+			throw new IllegalStateException(
+			"currentAuction have to be selected in order to add bid");
+		}
+		new Bid(loginManager.getCurrentUser(), currentAuction, bidAmount);
 	}
 
 	@Produces

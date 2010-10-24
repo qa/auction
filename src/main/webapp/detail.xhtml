@@ -34,6 +34,12 @@
 			
 			<h:outputLabel value="Popis aukce:" />
 			<h:outputText value="#{currentAuction.description}" />
+			
+			<h:outputLabel value="Nabídka:" rendered="#{loginManager.logged}" />
+			<h:form rendered="#{loginManager.logged}">
+				<h:inputText name="bid" value="#{bidAmount}"  />
+				<h:commandButton value="Přisadit" action="#{auctionManager.addBid(bidAmount)}" />
+			</h:form>
 		</h:panelGrid>
 
 
