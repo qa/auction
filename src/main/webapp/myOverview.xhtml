@@ -13,13 +13,17 @@
 	
 	<ui:define name="content">
 
-		<h2>Vyhrávané aukce</h2>
+		<h:panelGroup rendered="#{not empty auctionManager.getAuctionsWinningByUser(currentUser)}">
+			<h2>Vyhrávané aukce</h2>
+			
+			<a:auctionList auctions="#{auctionManager.getAuctionsWinningByUser(currentUser)}" rendered="#{loginManager.logged}" />
+		</h:panelGroup>
 		
-		<a:auctionList auctions="#{auctionManager.getAuctionsWinningByUser(currentUser)}" rendered="#{loginManager.logged}" />
-		
-		<h2>Prohrávané aukce</h2>
-		
-		<a:auctionList auctions="#{auctionManager.getAuctionLoosingByUser(currentUser)}" rendered="#{loginManager.logged}" />
+		<h:panelGroup rendered="#{not empty auctionManager.getAuctionLoosingByUser(currentUser)}">
+			<h2>Prohrávané aukce</h2>
+			
+			<a:auctionList auctions="#{auctionManager.getAuctionLoosingByUser(currentUser)}" rendered="#{loginManager.logged}" />
+		</h:panelGroup>
 
 	</ui:define>
 
