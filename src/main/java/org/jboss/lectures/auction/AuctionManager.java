@@ -1,4 +1,4 @@
-package org.jboss.lectures.auction.model;
+package org.jboss.lectures.auction;
 
 import java.util.List;
 

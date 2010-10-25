@@ -1,4 +1,4 @@
-package org.jboss.lectures.auction.model;
+package org.jboss.lectures.auction;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
