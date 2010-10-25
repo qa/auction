@@ -28,11 +28,11 @@ public class LoginManager implements Serializable {
 		return currentUser;
 	}
 
-	public void login(String username) {
-		currentUser = userManager.getUserByName(username);
+	public void login(String email) {
+		currentUser = userManager.getUserByEmail(email);
 
 		if (currentUser == null) {
-			currentUser = new User(username);
+			currentUser = new User(email);
 			userManager.addUser(currentUser);
 		}
 	}

@@ -65,9 +65,9 @@ public class DatabaseStub {
 		users.add(user);
 	}
 
-	public synchronized User findUserByName(String name) {
+	public synchronized User findUserByEmail(String email) {
 		for (User user : users) {
-			if (name.equals(user.getEmail())) {
+			if (email.equals(user.getEmail())) {
 				return user;
 			}
 		}

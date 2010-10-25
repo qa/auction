@@ -18,7 +18,7 @@ public class UserManager {
 		database.addUser(user);
 	}
 
-	public User getUserByName(String name) {
-		return database.findUserByName(name);
+	public User getUserByEmail(String email) {
+		return database.findUserByEmail(email);
 	}
 }
