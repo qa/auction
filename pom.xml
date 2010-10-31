@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lectures</groupId>
-	<artifactId>practice02-model</artifactId>
+	<artifactId>practice03-jpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -76,6 +76,7 @@
 	</dependencyManagement>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
@@ -88,9 +89,25 @@
 			<artifactId>richfaces-components-ui</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>org.jboss.seam.faces</groupId>
-            <artifactId>seam-faces</artifactId>
-            <version>3.0.0.Alpha3</version>
-        </dependency>
+      <groupId>org.jboss.seam.faces</groupId>
+      <artifactId>seam-faces</artifactId>
+      <version>3.0.0.Alpha3</version>
+    </dependency>
+
+    <!-- HSQLDB -->
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+
+    <!-- Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>3.5.2-Final</version>
+    </dependency>
+    
 	</dependencies>
+
 </project>
