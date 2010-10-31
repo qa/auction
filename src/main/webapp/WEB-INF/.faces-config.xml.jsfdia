@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:#add.xhtml" PATH="/add.xhtml"
-  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  SHAPE="56,128,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#add.xhtml:0" NAME="item" PATH="/add.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
     ID=":#{auctionManager.addAuction(newAuction)}:#detail.xhtml"
@@ -10,7 +10,7 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#detail.xhtml" PATH="/detail.xhtml"
-  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  SHAPE="576,88,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#detail.xhtml:0" NAME="item"
    PATH="/detail.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
@@ -19,7 +19,7 @@
     TITLE="#{auctionManager.addBid(bidAmount)}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+ <PROCESS-ITEM NAME="rules:" SHAPE="680,256,53,90" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
     ID=":#{loginManager.login(loginEmail)}:#{facesContext.viewRoot.viewId}"
@@ -44,5 +44,5 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#{facesContext.viewRoot.viewId}"
-  PATH="/{facesContext.viewRoot.viewId}" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/{facesContext.viewRoot.viewId}" SHAPE="304,280,50,25" model-entity="JSFProcessGroup"/>
 </PROCESS>

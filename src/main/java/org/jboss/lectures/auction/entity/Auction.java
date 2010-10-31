@@ -1,7 +1,7 @@
 package org.jboss.lectures.auction.entity;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.AUTO;
 
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class Auction {
 		return highestBid;
 	}
 
-	@OneToMany(cascade = ALL, fetch = EAGER, mappedBy = "auction")
+	@OneToMany(cascade = ALL, fetch = LAZY, mappedBy = "auction")
 	@Column(nullable = true, updatable = false)
 	@OrderBy("amount DESC")
 	public List<Bid> getBids() {
