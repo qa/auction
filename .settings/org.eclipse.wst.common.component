@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/lib" source-path="/target/practice03-jpa/WEB-INF/lib"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="java-output-path" value="/practice02-jsf/target/classes"/>
         <property name="context-root" value="practice03-jpa"/>
     </wb-module>

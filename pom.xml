@@ -102,11 +102,11 @@
     </dependency>
 
     <!-- Hibernate -->
-    <dependency>
+    <!-- <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
       <version>3.5.2-Final</version>
-    </dependency>
+    </dependency> -->
     
 	</dependencies>
 
