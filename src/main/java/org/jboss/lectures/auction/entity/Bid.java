@@ -14,6 +14,9 @@ public class Bid {
 	private Long amount;
 	private Long id;
 
+	public Bid() {
+	}
+	
 	public Bid(User bidder, Auction auction, Long amount) {
 		this.bidder = bidder;
 		this.auction = auction;

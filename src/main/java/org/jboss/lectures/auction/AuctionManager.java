@@ -1,5 +1,6 @@
 package org.jboss.lectures.auction;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -12,30 +13,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-
-import org.jboss.lectures.auction.db.DatabaseStub;
 import org.jboss.lectures.auction.entity.Auction;
 import org.jboss.lectures.auction.entity.Bid;
 import org.jboss.lectures.auction.entity.User;
 
-
-
 @ViewScoped
 @Named
-public class AuctionManager {
+public class AuctionManager implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private Auction currentAuction = null;
 
-	//@Inject
-	//private DatabaseStub database;
-	
-	@PersistenceContext
-	public EntityManager em;
+	@Inject
+	private EntityManager em;
 
 	@Inject
 	private LoginManager loginManager;
@@ -44,6 +38,9 @@ public class AuctionManager {
 	@Dependent
 	@Named
 	public Auction getCurrentAuction() {
+		if (currentAuction != null && !em.contains(currentAuction)) {
+			currentAuction = em.merge(currentAuction);
+		}
 		return currentAuction;
 	}
 
@@ -51,40 +48,37 @@ public class AuctionManager {
 		return (currentAuction == null) ? null : currentAuction.getId();
 	}
 
-	
-	
-	
-	
 	public void setCurrentAuctionId(Long currentId) {
-		//this.currentAuction = database.getAuctionById(currentId);
 		this.currentAuction = em.find(Auction.class, currentId);
 	}
-	
+
 	public List<Auction> getAll() {
-		//return database.getAllAuctions();
-		return em.createQuery("SELECT a FROM Auction a", Auction.class).getResultList();
+		return em.createQuery("SELECT a FROM Auction a", Auction.class)
+				.getResultList();
 	}
 
 	public List<Auction> getAuctionsWinningByUser(User user) {
-		//return database.getAuctionsWinningByUser(user);
-		
-		//String jql = "FROM Auction a RIGHT JOIN Bid b RIGHT JOIN User u WHERE u = :user";
-		//String jql = "SELECT a FROM User u LEFT JOIN u.bids LEFT JOIN Auction a WHERE u = :user";
-		//String jql = "SELECT u.bids.auction FROM User u WHERE u = :user";
-		String jql = "SELECT b2.auction FROM Bid b2 WHERE b2.auction IN " +
-						"(SELECT u.bids.auction FROM User u WHERE u = :user) " +
-						"GROUP BY b2.auction ORDER BY b2.amount DESC";
-		TypedQuery<Auction> query = em.createQuery( jql, Auction.class);
+		// return database.getAuctionsWinningByUser(user);
+
+		// String jql =
+		// "FROM Auction a RIGHT JOIN Bid b RIGHT JOIN User u WHERE u = :user";
+		// String jql =
+		// "SELECT a FROM User u LEFT JOIN u.bids LEFT JOIN Auction a WHERE u = :user";
+		// String jql = "SELECT u.bids.auction FROM User u WHERE u = :user";
+		String jql = "SELECT b2.auction FROM Bid b2 WHERE b2.auction IN "
+				+ "(SELECT u.bids.auction FROM User u WHERE u = :user) "
+				+ "GROUP BY b2.auction ORDER BY b2.amount DESC";
+		TypedQuery<Auction> query = em.createQuery(jql, Auction.class);
 		query.setParameter("user", user);
 		List<Auction> auctions = query.getResultList();
 		return auctions;
 	}
 
 	public List<Auction> getAuctionLoosingByUser(User user) {
-		String jql = "SELECT b2.auction FROM Bid b2 WHERE b2.auction IN " +
-						"(SELECT u.bids.auction FROM User u WHERE u = :user) " +
-						"GROUP BY b2.auction ORDER BY b2.amount DESC";
-		TypedQuery<Auction> query = em.createQuery( jql, Auction.class);
+		String jql = "SELECT b2.auction FROM Bid b2 WHERE b2.auction IN "
+				+ "(SELECT u.bids.auction FROM User u WHERE u = :user) "
+				+ "GROUP BY b2.auction ORDER BY b2.amount DESC";
+		TypedQuery<Auction> query = em.createQuery(jql, Auction.class);
 		query.setParameter("user", user);
 		List<Auction> auctions = query.getResultList();
 		return auctions;
@@ -95,12 +89,15 @@ public class AuctionManager {
 			throw new IllegalStateException(
 					"user must be logged in order to add auction");
 		}
+
 		auction.setOwner(loginManager.getCurrentUser());
-		
-		//currentAuction = database.createAuction(auction);
+		auction = new Auction(auction);
+
+		// currentAuction = database.createAuction(auction);
 		em.persist(auction);
 		em.flush();
 		em.refresh(auction);
+		currentAuction = auction;
 	}
 
 	public void addBid(long bidAmount) {
@@ -112,32 +109,30 @@ public class AuctionManager {
 			throw new IllegalStateException(
 					"currentAuction have to be selected in order to add bid");
 		}
-		
-		Bid bid = new Bid(loginManager.getCurrentUser(), currentAuction, bidAmount);
+
+		Bid bid = new Bid(loginManager.getCurrentUser(), currentAuction,
+				bidAmount);
 		em.persist(bid);
 		em.flush();
 		em.refresh(bid);
 	}
-	
+
 	public void addFavorite(User user, Auction auction) {
-		//database.addFavorite(user, auction);
-		if( em.contains(user))
+		// database.addFavorite(user, auction);
+		if (em.contains(user))
 			user = em.merge(user);
 		user.getFavorites().add(auction);
 		user = em.merge(user);
 	}
-	
+
 	public void removeFavorite(User user, Auction auction) {
-		//database.removeFavorite(user, auction);
-		if( em.contains(user))
+		// database.removeFavorite(user, auction);
+		if (em.contains(user))
 			user = em.merge(user);
 		user.getFavorites().remove(auction);
 		user = em.merge(user);
 	}
 
-	
-	
-	
 	@Produces
 	@RequestScoped
 	@Named("newAuction")
@@ -145,7 +140,6 @@ public class AuctionManager {
 		return new Auction();
 	}
 
-	
 	public void validateBid(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 
@@ -168,12 +162,12 @@ public class AuctionManager {
 
 		if (currentAuction.getHighestBid().getAmount() >= bidAmount) {
 			produceMessageForComponent(context, component, "Nová nabídka ("
-					+ bidAmount + ") musí být vyšší než dosavadní nejvyšší nabídka ("
+					+ bidAmount
+					+ ") musí být vyšší než dosavadní nejvyšší nabídka ("
 					+ currentAuction.getHighestBid().getAmount() + ")");
 		}
 	}
 
-	
 	private void produceMessageForComponent(FacesContext context,
 			UIComponent component, String message) {
 		FacesMessage facesMessage = new FacesMessage(message);

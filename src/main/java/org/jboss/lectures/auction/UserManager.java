@@ -1,8 +1,10 @@
 package org.jboss.lectures.auction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -15,14 +17,11 @@ public class UserManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// @Inject private DatabaseStub database;
-
-	// @PersistenceContext
-	public EntityManager em;
+	@Inject
+	private EntityManager em;
 
 	public void addUser(User user) {
-		// database.addUser(user);
-
+		em.persist(user);
 	}
 
 	public User getUserByEmail(String email) {
@@ -30,6 +29,13 @@ public class UserManager implements Serializable {
 		String jql = "SELECT u FROM User u WHERE u.email = :email) ";
 		TypedQuery<User> query = em.createQuery(jql, User.class);
 		query.setParameter("email", email);
-		return query.getSingleResult();
+		
+		List<User> users = query.getResultList();
+
+		if (!users.isEmpty()) {
+			return users.get(0);
+		} else {
+			return null;
+		}
 	}
 }
