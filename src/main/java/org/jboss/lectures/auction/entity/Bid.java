@@ -18,7 +18,7 @@ public class Bid {
 		this.bidder = bidder;
 		this.auction = auction;
 		this.amount = amount;
-		
+
 		auction.addBid(this);
 	}
 
@@ -31,19 +31,31 @@ public class Bid {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@ManyToOne
 	public User getBidder() {
 		return bidder;
 	}
 
+	public void setBidder(User bidder) {
+		this.bidder = bidder;
+	}
+
 	public Long getAmount() {
 		return amount;
 	}
-	
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
+
 	@ManyToOne
 	public Auction getAuction() {
 		return auction;
+	}
+
+	public void setAuction(Auction auction) {
+		this.auction = auction;
 	}
 
 	public boolean isHigher(Bid bid) {

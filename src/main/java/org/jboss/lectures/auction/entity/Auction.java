@@ -72,11 +72,11 @@ public class Auction {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -94,6 +94,10 @@ public class Auction {
 		return highestBid;
 	}
 
+	public void setHighestBid(Bid highestBid) {
+		this.highestBid = highestBid;
+	}
+
 	@OneToMany(cascade = ALL, fetch = LAZY, mappedBy = "auction")
 	@Column(nullable = true, updatable = false)
 	@OrderBy("amount DESC")
@@ -105,11 +109,11 @@ public class Auction {
 		this.bids = bids;
 	}
 
+	@ManyToMany
 	public List<User> getBookmarkedBys() {
 		return bookmarkedBy;
 	}
 
-	@ManyToMany
 	public void setBookmarkedBys(List<User> bookmarkedBy) {
 		this.bookmarkedBy = bookmarkedBy;
 	}
@@ -129,8 +133,8 @@ public class Auction {
 					+ highestBid.getAmount() + ")");
 		}
 
-		this.bids.add(bid);
-		this.highestBid = bid;
+		this.getBids().add(bid);
+		this.setHighestBid(bid);
 	}
 
 	@Override
