@@ -3,6 +3,9 @@ package org.jboss.lectures.auction;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -22,6 +25,8 @@ import org.jboss.lectures.auction.entity.User;
 
 @ViewScoped
 @Named
+@Stateful
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class AuctionManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
