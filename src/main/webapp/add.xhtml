@@ -24,8 +24,10 @@
 					<h:outputLabel value="Popis:" />
 					<h:inputTextarea value="#{newAuction.description}" />
 					
-					<h:commandButton value="Vlozit" action="#{auctionManager.addAuction(newAuction)}" />
+					<h:commandButton value="Vložit" action="#{auctionManager.addAuction(newAuction)}" />	
 				</h:panelGrid>
+				
+				<h:messages style="color: red" />
 			</h:form>
 			
 		</ui:define>

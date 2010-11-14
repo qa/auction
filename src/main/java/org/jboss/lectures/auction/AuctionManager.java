@@ -22,6 +22,7 @@ import javax.persistence.TypedQuery;
 import org.jboss.lectures.auction.entity.Auction;
 import org.jboss.lectures.auction.entity.Bid;
 import org.jboss.lectures.auction.entity.User;
+import org.jboss.lectures.auction.qualifiers.CurrentAuction;
 
 @ViewScoped
 @Named
@@ -42,6 +43,7 @@ public class AuctionManager implements Serializable {
 	@Produces
 	@Dependent
 	@Named
+	@CurrentAuction
 	public Auction getCurrentAuction() {
 		if (currentAuction != null && !em.contains(currentAuction)) {
 			currentAuction = em.merge(currentAuction);
@@ -143,42 +145,5 @@ public class AuctionManager implements Serializable {
 	@Named("newAuction")
 	public Auction createNewAuction() {
 		return new Auction();
-	}
-
-	public void validateBid(FacesContext context, UIComponent component,
-			Object value) throws ValidatorException {
-
-		long bidAmount = Long.valueOf(value.toString());
-
-		if (currentAuction == null) {
-			produceMessageForComponent(context, component,
-					"Není zvolena aktuální aukce");
-		}
-
-		if (currentAuction.getOriginalPrice() >= bidAmount) {
-			produceMessageForComponent(context, component, "Nová nabídka ("
-					+ bidAmount + ") musí být vyšší než originální cena ("
-					+ currentAuction.getOriginalPrice() + ")");
-		}
-
-		if (currentAuction.getHighestBid() == null) {
-			return;
-		}
-
-		if (currentAuction.getHighestBid().getAmount() >= bidAmount) {
-			produceMessageForComponent(context, component, "Nová nabídka ("
-					+ bidAmount
-					+ ") musí být vyšší než dosavadní nejvyšší nabídka ("
-					+ currentAuction.getHighestBid().getAmount() + ")");
-		}
-	}
-
-	private void produceMessageForComponent(FacesContext context,
-			UIComponent component, String message) {
-		FacesMessage facesMessage = new FacesMessage(message);
-
-		context.addMessage(component.getId(), facesMessage);
-
-		throw new ValidatorException(facesMessage);
 	}
 }

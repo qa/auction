@@ -58,7 +58,7 @@
 				<h:outputLabel value="Nabídka:" rendered="#{loginManager.logged}" />
 				<h:form rendered="#{loginManager.logged}">
 					<h:inputText id="bidAmountInput" value="#{bidAmount}"
-						validator="#{auctionManager.validateBid}" />
+						validator="#{bidValidator.validateBid}" />
 					<h:commandButton value="Přisadit"
 						action="#{auctionManager.addBid(bidAmount)}" />
 					<h:message for="bidAmountInput" style="color: red" />
