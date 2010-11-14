@@ -89,8 +89,7 @@ public class AuctionManager implements Serializable {
 
 		auction.setOwner(loginManager.getCurrentUser());
 		auction = new Auction(auction);
-
-		// currentAuction = database.createAuction(auction);
+		
 		em.persist(auction);
 		em.flush();
 		em.refresh(auction);
@@ -121,7 +120,6 @@ public class AuctionManager implements Serializable {
 	}
 
 	public void addFavorite(User user, Auction auction) {
-		// database.addFavorite(user, auction);
 		if (em.contains(user))
 			user = em.merge(user);
 		user.getFavorites().add(auction);
@@ -129,7 +127,6 @@ public class AuctionManager implements Serializable {
 	}
 
 	public void removeFavorite(User user, Auction auction) {
-		// database.removeFavorite(user, auction);
 		if (em.contains(user))
 			user = em.merge(user);
 		user.getFavorites().remove(auction);

@@ -30,7 +30,6 @@ public class UserManager implements Serializable {
 	}
 
 	public User getUserByEmail(String email) {
-		// return database.findUserByEmail(email);
 		String jql = "SELECT u FROM User u WHERE u.email = :email) ";
 		TypedQuery<User> query = em.createQuery(jql, User.class);
 		query.setParameter("email", email);
