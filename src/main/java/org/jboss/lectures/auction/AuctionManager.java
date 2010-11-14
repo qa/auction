@@ -23,7 +23,7 @@ import org.jboss.lectures.auction.entity.User;
 @ViewScoped
 @Named
 public class AuctionManager implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Auction currentAuction = null;
@@ -58,16 +58,9 @@ public class AuctionManager implements Serializable {
 	}
 
 	public List<Auction> getAuctionsWinningByUser(User user) {
-		// return database.getAuctionsWinningByUser(user);
-
-		// String jql =
-		// "FROM Auction a RIGHT JOIN Bid b RIGHT JOIN User u WHERE u = :user";
-		// String jql =
-		// "SELECT a FROM User u LEFT JOIN u.bids LEFT JOIN Auction a WHERE u = :user";
-		// String jql = "SELECT u.bids.auction FROM User u WHERE u = :user";
-		String jql = "SELECT b2.auction FROM Bid b2 WHERE b2.auction IN "
-				+ "(SELECT u.bids.auction FROM User u WHERE u = :user) "
-				+ "GROUP BY b2.auction ORDER BY b2.amount DESC";
+		String jql = "SELECT auction FROM Auction auction, User user "
+				+ "WHERE user=:user AND auction.highestBid member of user.bids "
+				+ "ORDER BY auction.id";
 		TypedQuery<Auction> query = em.createQuery(jql, Auction.class);
 		query.setParameter("user", user);
 		List<Auction> auctions = query.getResultList();
@@ -75,9 +68,10 @@ public class AuctionManager implements Serializable {
 	}
 
 	public List<Auction> getAuctionLoosingByUser(User user) {
-		String jql = "SELECT b2.auction FROM Bid b2 WHERE b2.auction IN "
-				+ "(SELECT u.bids.auction FROM User u WHERE u = :user) "
-				+ "GROUP BY b2.auction ORDER BY b2.amount DESC";
+		String jql = "SELECT DISTINCT auction FROM User user "
+				+ "JOIN user.bids bid JOIN bid.auction auction "
+				+ "WHERE user=:user AND auction.highestBid.bidder != user "
+				+ "ORDER BY auction.id";
 		TypedQuery<Auction> query = em.createQuery(jql, Auction.class);
 		query.setParameter("user", user);
 		List<Auction> auctions = query.getResultList();
