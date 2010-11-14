@@ -21,7 +21,7 @@
 		<h:panelGroup layout="div"
 			rendered="#{auctionManager.currentAuction != null}">
 			
-			<a4j:poll interval="3000" render="highestBidOutput, bidHistory" />
+			<a4j:poll interval="3000" render="highestBidOutput, bidHistory" action="#{auctionManager.refreshAuction(currentAuction)}" />
 			
 			<h3>#{currentAuction.name}</h3>
 

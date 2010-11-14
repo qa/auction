@@ -93,6 +93,12 @@ public class AuctionManager implements Serializable {
 		em.refresh(auction);
 		currentAuction = auction;
 	}
+	
+	public void refreshAuction(Auction auction) {
+		em.refresh(auction);
+	}
+	
+	
 
 	public void addBid(long bidAmount) {
 		if (!loginManager.isLogged()) {
