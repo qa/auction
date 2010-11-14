@@ -21,11 +21,11 @@
 	<composite:implementation>
 		
 		<li>
-			<h:outputLink value="#{cc.attrs.page}.jsf" styleClass="#{cc.attrs.active ? 'active' : ''}" rendered="#{cc.attrs.rendered}">
+			<h:link outcome="#{cc.attrs.page}" styleClass="#{cc.attrs.active ? 'active' : ''}" rendered="#{cc.attrs.rendered}">
 	            <span class="l"></span>
 				<span class="r"></span>
 				<span class="t">#{cc.attrs.label}</span>
-			</h:outputLink>
+			</h:link>
 		</li>
 
 	</composite:implementation>
