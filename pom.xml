@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lectures</groupId>
-	<artifactId>practice03-jpa</artifactId>
+	<artifactId>practice04-ejb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
