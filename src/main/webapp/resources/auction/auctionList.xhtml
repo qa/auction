@@ -17,12 +17,14 @@
 
 	<composite:implementation>
 		
-		<h:dataTable id="auctionsTable" rows="6" value="#{cc.attrs.auctions}" var="auct" border="1" styleClass="flat list auctions" rendered="#{cc.attrs.rendered and not empty cc.attrs.auctions}">
+		<rich:dataTable id="auctionsTable" rows="6" value="#{cc.attrs.auctions}" var="auct" border="1" styleClass="flat list auctions" rendered="#{cc.attrs.rendered and not empty cc.attrs.auctions}">
+			<f:facet name="header">
+				<rich:dataScroller forComponent="auctionsTable" />
+			</f:facet>
 			
-			
-			<h:column >
+			<rich:column sortBy="#{auct.name}" sortOrder="ascending" >
 				<h:outputLink value="detail.jsf?auctionId=#{auct.id}">#{auct.name}</h:outputLink>
-			</h:column>
+			</rich:column>
 			
 			<h:column>
 				<f:facet name="header">Dražitel</f:facet>
@@ -37,7 +39,7 @@
 				<h:outputText value="#{auct.highestBid.bidder.name}: #{auct.highestBid.amount}" rendered="#{not empty auct.bids}" />
 				<h:outputText value="-" rendered="#{empty auct.bids}" />
 			</h:column>
-		</h:dataTable>
+		</rich:dataTable>
 
 	</composite:implementation>
 </h:body>
