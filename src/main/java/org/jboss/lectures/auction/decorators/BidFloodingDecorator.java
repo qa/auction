@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.decorator.Decorator;
 import javax.decorator.Delegate;
-//import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 
 import org.jboss.lectures.auction.AuctionManager;
@@ -21,9 +20,6 @@ public abstract class BidFloodingDecorator implements AuctionManager, Serializab
 	@Inject
 	private BidTracker bidTracker;
 	
-	//@Inject
-	//private FacesContext ctx;
-	
 	public void addBid(long bidAmount)
 	{
 		if (bidTracker.isNewBidAllowed())
@@ -33,8 +29,6 @@ public abstract class BidFloodingDecorator implements AuctionManager, Serializab
 		}
 		else 
 		{
-			//FacesMessage msg = new FacesMessage("You've bidded more than 2 times in 10 seconds. No flooding allowed!");
-			//ctx.addMessage(null, msg);
 			throw new IllegalStateException("You've bidded more than 2 times in 20 seconds. No flooding allowed!");
 		}
 	}
