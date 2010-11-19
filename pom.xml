@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>lectures</groupId>
-	<artifactId>practice04-ejb</artifactId>
+	<artifactId>practice05-cdi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>JEE lab - JPA - JBDS</name>
+	<name>JEE lab - CDI - JBDS</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

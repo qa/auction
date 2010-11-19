@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -14,10 +11,8 @@ import javax.persistence.TypedQuery;
 
 import org.jboss.lectures.auction.entity.User;
 
-@Dependent
 @Named
 @Stateless
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;

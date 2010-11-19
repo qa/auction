@@ -1,6 +1,5 @@
 package org.jboss.lectures.auction.validation;
 
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,7 +10,6 @@ import javax.inject.Named;
 import org.jboss.lectures.auction.entity.Auction;
 import org.jboss.lectures.auction.qualifiers.CurrentAuction;
 
-@Dependent
 @Named
 public class BidValidator {
 	

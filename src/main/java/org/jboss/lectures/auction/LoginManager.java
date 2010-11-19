@@ -3,9 +3,6 @@ package org.jboss.lectures.auction;
 import java.io.Serializable;
 
 import javax.ejb.Stateful;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -17,7 +14,6 @@ import org.jboss.lectures.auction.entity.User;
 @SessionScoped
 @Named
 @Stateful
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class LoginManager implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +28,6 @@ public class LoginManager implements Serializable {
 
 	@Produces
 	@Named
-	@Dependent
 	public User getCurrentUser() {
 		if (currentUser != null && !em.contains(currentUser)) {
 			currentUser = em.merge(currentUser);
