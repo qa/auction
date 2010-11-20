@@ -56,6 +56,13 @@ public class UserObserver
 			message.setText("");
 			// Send message
 			Transport.send(message);
+			
+			//*** or use real SMTP server (host), username and password *** 
+			//message.saveChanges(); // implicit with send()
+			//Transport transport = session.getTransport("smtp");
+			//transport.connect(host, username, password);
+			//transport.sendMessage(message, message.getAllRecipients());
+			//transport.close();
 		} 
 		catch (MessagingException e) 
 		{
@@ -67,9 +74,9 @@ public class UserObserver
 	{
 		/* Wiser is listening on port 2525 to receive a message (for testing purposes) */
 		Wiser wiser = new Wiser(); 
-	    wiser.setPort(2525);
-	    wiser.start();
-	    return wiser;
+		wiser.setPort(2525);
+		wiser.start();
+		return wiser;
 	}
 	
 	public void checkMail(Wiser wiser)
@@ -81,9 +88,9 @@ public class UserObserver
 		}
 		
 		WiserMessage message = wiser.getMessages().get(0);
-	    System.out.println("==========================MESSAGE===========================");
-	    System.out.println(new String(message.getData()));
-	    System.out.println("============================================================");
+		System.out.println("==========================MESSAGE===========================");
+		System.out.println(new String(message.getData()));
+		System.out.println("============================================================");
 	}
 	
 }
