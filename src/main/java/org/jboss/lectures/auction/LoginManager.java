@@ -23,15 +23,19 @@ public class LoginManager implements Serializable {
 
 	@Inject
 	private EntityManager em;
-	
+
 	@Inject
 	private UserManager userManager;
-	
+
 	private User currentUser;
-	
-	@Inject @LoggedIn private Event<User> loggedInEvent;
-	
-	@Inject @Registered private Event<User> registeredEvent;
+
+	@Inject
+	@LoggedIn
+	private Event<User> loggedInEvent;
+
+	@Inject
+	@Registered
+	private Event<User> registeredEvent;
 
 	@Produces
 	@Named
@@ -41,17 +45,17 @@ public class LoginManager implements Serializable {
 		}
 		return currentUser;
 	}
-	
+
 	public void login(String email) {
 		currentUser = userManager.getUserByEmail(email);
 
 		if (currentUser == null) {
 			currentUser = new User(email);
 			userManager.addUser(currentUser);
-			registeredEvent.fire(currentUser); //fire event
+			registeredEvent.fire(currentUser); // fire event
 		}
-		
-		loggedInEvent.fire(currentUser); //fire event
+
+		loggedInEvent.fire(currentUser); // fire event
 	}
 
 	public void logout() {
