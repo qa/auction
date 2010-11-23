@@ -8,9 +8,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import org.subethamail.wiser.Wiser;
-import org.subethamail.wiser.WiserMessage;
 import org.jboss.lectures.auction.entity.User;
+import org.jboss.lectures.auction.test.MockSmtpServer;
 
 
 public class UserObserver 
@@ -21,17 +20,13 @@ public class UserObserver
 		System.out.println("User identified by " + user.getEmail() + " logged in"); 
 	}
 	
-	public void newUserRegistered(@Observes @Registered User user)
+	public void newUserRegistered(@Observes @Registered User user, MockSmtpServer smtpServer)
 	{
-		Wiser wiser = startWiser();  //start recipient stub
-		
 		String subject = "User " + user.getEmail() + " registered";
 
 		sendMail(subject);
 		
-		checkMail(wiser);
-		
-		wiser.stop(); //stop recipient stub
+		smtpServer.checkMail();
 	}
 	
 	public void sendMail(String subject)
@@ -69,28 +64,4 @@ public class UserObserver
 			e.printStackTrace();
 		}
 	}
-	
-	public Wiser startWiser()
-	{
-		/* Wiser is listening on port 2525 to receive a message (for testing purposes) */
-		Wiser wiser = new Wiser(); 
-		wiser.setPort(2525);
-		wiser.start();
-		return wiser;
-	}
-	
-	public void checkMail(Wiser wiser)
-	{
-		if (wiser.getMessages().isEmpty())
-		{
-			System.out.println("No message received");
-			return;
-		}
-		
-		WiserMessage message = wiser.getMessages().get(0);
-		System.out.println("==========================MESSAGE===========================");
-		System.out.println(new String(message.getData()));
-		System.out.println("============================================================");
-	}
-	
 }
