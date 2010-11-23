@@ -54,6 +54,9 @@
 
 				<h:outputLabel value="Popis aukce:" />
 				<h:outputText value="#{currentAuction.description}" />
+				
+				<h:outputLabel value="Lokace:" />
+				<h:outputText value="#{currentAuction.location}" />
 
 				<h:outputLabel value="Nabídka:" rendered="#{loginManager.logged}" />
 				<h:form rendered="#{loginManager.logged}">

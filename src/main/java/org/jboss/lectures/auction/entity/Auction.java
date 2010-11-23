@@ -28,6 +28,7 @@ public class Auction {
 	private List<Bid> bids = new ArrayList<Bid>();
 	private List<User> bookmarkedBy = new ArrayList<User>();
 	private Long id;
+	private String location;
 
 	public Auction() {
 	}
@@ -135,6 +136,14 @@ public class Auction {
 
 		this.getBids().add(bid);
 		this.setHighestBid(bid);
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	@Override
