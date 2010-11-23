@@ -11,8 +11,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.lectures.auction.entity.User;
-import org.jboss.lectures.auction.events.LoggedIn;
 import org.jboss.lectures.auction.events.Registered;
+import org.jboss.lectures.auction.qualifiers.LoggedIn;
 
 @SessionScoped
 @Named

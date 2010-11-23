@@ -9,6 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.jboss.lectures.auction.entity.User;
+import org.jboss.lectures.auction.qualifiers.LoggedIn;
 import org.jboss.lectures.auction.test.MockSmtpServer;
 
 

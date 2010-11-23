@@ -1,4 +1,4 @@
-package org.jboss.lectures.auction.events;
+package org.jboss.lectures.auction.qualifiers;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

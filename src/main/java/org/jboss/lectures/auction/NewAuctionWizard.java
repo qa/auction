@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 
 import org.jboss.lectures.auction.entity.Auction;
 import org.jboss.lectures.auction.entity.User;
-import org.jboss.lectures.auction.events.LoggedIn;
+import org.jboss.lectures.auction.qualifiers.LoggedIn;
 
 @ConversationScoped
 @Named
