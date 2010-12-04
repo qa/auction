@@ -136,6 +136,21 @@
 			<scope>provided</scope>
 		</dependency>
       
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.jboss.arquillian</groupId>
+            <artifactId>arquillian-testng</artifactId>
+            <version>${arquillian.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+      
 	</dependencies>
 
 	<build>
@@ -199,16 +214,11 @@
                   <version>2.6</version>
                   <configuration>                    
                      <includes>
-                        <include>**/*</include>
+                        <include>**/*Test.java</include>
                      </includes>
                   </configuration>
                </plugin>
             </plugins>
-            <testResources>
-               <testResource>
-                  <directory>${basedir}/src/test/jboss-resources</directory>
-               </testResource>
-            </testResources>
          </build>
       </profile>
    </profiles>
