@@ -1,33 +1,38 @@
 package org.jboss.lectures.auction.simple;
 
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.testng.Arquillian;
+import javax.inject.Inject;
 
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.lectures.auction.validation.City;
 import org.jboss.lectures.auction.validation.CityValidator;
+import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
-
-public class CityValidatorTest extends Arquillian
+@RunWith(Arquillian.class)
+public class CityValidatorTest
 {
    @Inject
    private CityValidator validator;
-   
+
    @Deployment
-   public static JavaArchive jar() {
+   public static Archive<?> jar()
+   {
       return ShrinkWrap.create(JavaArchive.class)
-      .addClass(CityValidator.class)
-      .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+         .addClasses(CityValidator.class, City.class)
+         .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));         
+      
    }
-   
+
    @Test
-   public void isInBigCity() {
-      Assert.assertFalse(validator.isValid("Ostrava", null), "Ostrava neni dost velke mesto");
+   public void isInBigCity()
+   {
+      Assert.assertFalse("Ostrava neni dost velke mesto", validator.isValid("Ostrava", null));
    }
-   
 }

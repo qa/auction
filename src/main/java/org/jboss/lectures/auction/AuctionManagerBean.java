@@ -20,7 +20,7 @@ import org.jboss.lectures.auction.qualifiers.CurrentAuction;
 @ViewScoped
 @Named("auctionManager")
 @Stateful
-public class AuctionManagerImpl implements Serializable, AuctionManager {
+public class AuctionManagerBean implements Serializable, AuctionManager {
 
 	private static final long serialVersionUID = 1L;
 
