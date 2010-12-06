@@ -3,42 +3,52 @@ package org.jboss.lectures.auction.selenium;
 import java.io.File;
 
 import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.api.Run;
+import org.jboss.arquillian.api.RunModeType;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.selenium.annotation.Selenium;
-import org.jboss.lectures.auction.UserManager;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.dependencies.Dependencies;
 import org.jboss.shrinkwrap.dependencies.impl.MavenDependencies;
-import org.jboss.shrinkwrap.dependencies.impl.filter.StrictFilter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 
 @RunWith(Arquillian.class)
+@Run(RunModeType.AS_CLIENT)
 public class SeleniumTest
 {
    @Selenium
-   DefaultSelenium selenium;
-   
+   DefaultSelenium selenium;  
+      
    @Deployment
    public static Archive<?> war() {
-      return ShrinkWrap.create(WebArchive.class, "practice0x-testing.war")
-         .addPackages(true, UserManager.class.getPackage())
-         .addLibraries(Dependencies.use(MavenDependencies.class)
-                        .configureFrom(System.getProperty("user.home") + "/test/tools/apache-maven-3.0/conf/settings-m2e.xml")
-                        .loadPom("pom.xml")
-                        .artifacts("org.richfaces.ui:richfaces-components-ui",
-                              "org.jboss.seam.faces:seam-faces:jar:practice-auction-patch:3.0.0.Beta1",
-                              "org.jboss.seam.persistence:seam-persistence-impl:jar",
-                              "javax.activation:activation:jar",
-                              "javax.mail:mail:jar",
-                              "org.subethamail:subethasmtp-smtp:jar",
-                              "org.subethamail:subethasmtp-wiser:jar")
-                        .resolve(new StrictFilter()))                        
+        
+      
+      File[] libs = Dependencies.use(MavenDependencies.class)
+            .configureFrom(System.getProperty("user.home") + "/test/tools/apache-maven-3.0/conf/settings-m2e.xml")
+            .loadPom("pom.xml")
+            .artifacts("org.richfaces.ui:richfaces-components-ui",
+                  "org.jboss.seam.faces:seam-faces:jar",
+                  "org.jboss.seam.persistence:seam-persistence-impl:jar",
+                  //"org.jboss.seam.faces:seam-faces-api:jar:3.0.0.Beta1",
+                  //"javax.enterprise:cdi-api:jar:1.0-SP2",
+                  "javax.activation:activation:jar",
+                  "javax.mail:mail:jar",
+                  "org.subethamail:subethasmtp-smtp:jar",
+                  "org.subethamail:subethasmtp-wiser:jar")
+                  //.exclusion("javax.annotation:jsr250-api")
+            .resolveAsFiles();
+            
+      
+      return ShrinkWrap.create(WebArchive.class, "practice0x-testing.war")  
+      
+         .addLibraries(libs)
+         .addPackages(true, org.jboss.lectures.auction.AuctionManager.class.getPackage())         
          .addResource(new File("src/main/webapp/detail.xhtml"), ArchivePaths.create("detail.xhtml"))
          .addResource(new File("src/main/webapp/index.html"), ArchivePaths.create("index.html"))
          .addResource(new File("src/main/webapp/list.xhtml"), ArchivePaths.create("list.xhtml"))         
@@ -89,25 +99,12 @@ public class SeleniumTest
          .addWebResource(new File("src/main/resources/import.sql"), ArchivePaths.create("classes/import.sql"))
          .addManifestResource(new File("src/main/resources/META-INF/persistence.xml"))
          .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
+         
    }
    
    @Test
-   public void testLogin() {
-      
-      System.out.println(
-      ShrinkWrap.create(WebArchive.class).addLibraries(
-      Dependencies.use(MavenDependencies.class)
-      .configureFrom(System.getProperty("user.home") + "/test/tools/apache-maven-3.0/conf/settings-m2e.xml")
-      .loadPom("pom.xml")
-      .artifacts("org.richfaces.ui:richfaces-components-ui",
-            "org.jboss.seam.faces:seam-faces:jar:practice-auction-patch:3.0.0.Beta1",
-            "org.jboss.seam.persistence:seam-persistence-impl:jar",
-            "javax.activation:activation:jar",
-            "javax.mail:mail:jar",
-            "org.subethamail:subethasmtp-smtp:jar",
-            "org.subethamail:subethasmtp-wiser:jar")
-      .resolve()).toString(true));
-      
+   public void testLogin() {      
+     
       selenium.open("http://localhost:8080/practice0x-testing/index.html");
       
       selenium.type("tester@tester.org", "xpath=//input[contains(@id, 'emailInput')]");      

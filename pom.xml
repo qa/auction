@@ -83,8 +83,7 @@
       <dependency>
          <groupId>org.jboss.seam.faces</groupId>
          <artifactId>seam-faces</artifactId>
-         <version>3.0.0.Beta1</version>
-         <classifier>practice-auction-patch</classifier>
+         <version>3.0.0.Beta1</version>        
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.persistence</groupId>
@@ -192,14 +191,28 @@
          <artifactId>shrinkwrap-extension-dependencies</artifactId>
          <version>${shrinkwrap.version}</version>
          <scope>test</scope>
+      </dependency>
+         
+ 
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-api</artifactId>
+         <version>1.0.0-alpha-11</version>
+         <scope>test</scope>
       </dependency>     
-
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-spi</artifactId>
+         <version>1.0.0-alpha-11</version>
+         <scope>test</scope>
+      </dependency>
       <dependency>
          <groupId>org.jboss.shrinkwrap</groupId>
          <artifactId>shrinkwrap-impl-base</artifactId>
-         <version>1.0.0-alpha-12</version>
+         <version>1.0.0-alpha-11</version>
          <scope>test</scope>
       </dependency>     
+      
 
       
    </dependencies>
@@ -270,7 +283,7 @@
                   <version>2.6</version>
                   <configuration>
                      <systemPropertyVariables>
-                        <arquillian.selenium.server.enable>false</arquillian.selenium.server.enable>
+                        <arquillian.selenium.server.enable>true</arquillian.selenium.server.enable>
                      </systemPropertyVariables>                  
                      <includes>
                         <include>**/Sel*Test.java</include>
