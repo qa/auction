@@ -14,10 +14,11 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <arquillian.version>1.0.0-SNAPSHOT</arquillian.version>
       <shrinkwrap.version>1.0.0-SNAPSHOT</shrinkwrap.version>
-      <selenium.version>2.0a7</selenium.version>
+      <selenium.version>2.0a5</selenium.version>
       <testng.version>5.12.1</testng.version>
       <mockito.version>1.8.1</mockito.version>
       <junit.version>4.8.1</junit.version>
+      <slf4j.version>1.5.10</slf4j.version>
    </properties>
 
    <repositories>
@@ -153,6 +154,54 @@
          <version>${junit.version}</version>
          <scope>test</scope>
       </dependency>
+ 
+      <dependency>
+         <groupId>org.jboss.arquillian.extension</groupId>
+         <artifactId>arquillian-selenium</artifactId>
+         <version>${arquillian.version}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.seleniumhq.selenium</groupId>
+         <artifactId>selenium</artifactId>
+         <version>${selenium.version}</version>
+         <scope>test</scope>
+         <exclusions>
+ 	     <exclusion>
+ 	     	<groupId>org.hamcrest</groupId>
+ 	     	<artifactId>hamcrest-all</artifactId>
+ 	     </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-simple</artifactId>
+         <version>${slf4j.version}</version>
+         <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.seleniumhq.selenium</groupId>
+         <artifactId>selenium-server</artifactId>
+         <version>${selenium.version}</version>
+         <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-extension-dependencies</artifactId>
+         <version>${shrinkwrap.version}</version>
+         <scope>test</scope>
+      </dependency>     
+
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-impl-base</artifactId>
+         <version>1.0.0-alpha-12</version>
+         <scope>test</scope>
+      </dependency>     
+
+      
    </dependencies>
 
    <build>
@@ -220,8 +269,11 @@
                   <artifactId>maven-surefire-plugin</artifactId>
                   <version>2.6</version>
                   <configuration>
+                     <systemPropertyVariables>
+                        <arquillian.selenium.server.enable>false</arquillian.selenium.server.enable>
+                     </systemPropertyVariables>                  
                      <includes>
-                        <include>**/*Test.java</include>
+                        <include>**/Sel*Test.java</include>
                      </includes>
                   </configuration>
                </plugin>
