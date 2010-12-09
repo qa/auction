@@ -12,8 +12,8 @@
 
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <arquillian.version>1.0.0-SNAPSHOT</arquillian.version>
-      <shrinkwrap.version>1.0.0-SNAPSHOT</shrinkwrap.version>
+      <arquillian.version>1.0.0.Alpha4</arquillian.version>
+      <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
       <selenium.version>2.0a5</selenium.version>
       <testng.version>5.12.1</testng.version>
       <mockito.version>1.8.1</mockito.version>
@@ -25,7 +25,7 @@
       <repository>
          <id>jboss-public-repository</id>
          <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public</url>
+         <url>http://repository.jboss.org/nexus/content/groups/public</url>
          <releases>
             <updatePolicy>never</updatePolicy>
          </releases>
@@ -39,7 +39,7 @@
       <pluginRepository>
          <id>jboss-public-repository</id>
          <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public</url>
+         <url>http://repository.jboss.org/nexus/content/groups/public</url>
          <releases>
             <updatePolicy>never</updatePolicy>
          </releases>
@@ -83,7 +83,8 @@
       <dependency>
          <groupId>org.jboss.seam.faces</groupId>
          <artifactId>seam-faces</artifactId>
-         <version>3.0.0.Beta1</version>        
+         <version>3.0.0.Beta1</version>
+         <classifier>practice-auction-patch</classifier>        
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.persistence</groupId>
@@ -191,30 +192,8 @@
          <artifactId>shrinkwrap-extension-dependencies</artifactId>
          <version>${shrinkwrap.version}</version>
          <scope>test</scope>
-      </dependency>
-         
- 
-      <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-api</artifactId>
-         <version>1.0.0-alpha-11</version>
-         <scope>test</scope>
-      </dependency>     
-      <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-spi</artifactId>
-         <version>1.0.0-alpha-11</version>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-impl-base</artifactId>
-         <version>1.0.0-alpha-11</version>
-         <scope>test</scope>
-      </dependency>     
-      
-
-      
+      </dependency>      
+    
    </dependencies>
 
    <build>

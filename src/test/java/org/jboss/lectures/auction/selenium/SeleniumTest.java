@@ -26,28 +26,11 @@ public class SeleniumTest
    DefaultSelenium selenium;  
       
    @Deployment
-   public static Archive<?> war() {
-        
-      
-      File[] libs = Dependencies.use(MavenDependencies.class)
-            .configureFrom(System.getProperty("user.home") + "/test/tools/apache-maven-3.0/conf/settings-m2e.xml")
-            .loadPom("pom.xml")
-            .artifacts("org.richfaces.ui:richfaces-components-ui",
-                  "org.jboss.seam.faces:seam-faces:jar",
-                  "org.jboss.seam.persistence:seam-persistence-impl:jar",
-                  //"org.jboss.seam.faces:seam-faces-api:jar:3.0.0.Beta1",
-                  //"javax.enterprise:cdi-api:jar:1.0-SP2",
-                  "javax.activation:activation:jar",
-                  "javax.mail:mail:jar",
-                  "org.subethamail:subethasmtp-smtp:jar",
-                  "org.subethamail:subethasmtp-wiser:jar")
-                  //.exclusion("javax.annotation:jsr250-api")
-            .resolveAsFiles();
+   public static Archive<?> war() {        
             
-      
       return ShrinkWrap.create(WebArchive.class, "practice0x-testing.war")  
       
-         .addLibraries(libs)
+         .addLibraries(Dependencies.use(MavenDependencies.class).resolveFrom("pom.xml"))
          .addPackages(true, org.jboss.lectures.auction.AuctionManager.class.getPackage())         
          .addResource(new File("src/main/webapp/detail.xhtml"), ArchivePaths.create("detail.xhtml"))
          .addResource(new File("src/main/webapp/index.html"), ArchivePaths.create("index.html"))
