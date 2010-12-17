@@ -1,64 +1,34 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat Middleware LLC, and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.jboss.lectures.auction;
 
-import java.io.Serializable;
-
-import javax.ejb.Stateful;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-
 import org.jboss.lectures.auction.entity.User;
-import org.jboss.lectures.auction.qualifiers.LoggedIn;
 
-@SessionScoped
-@Named
-@Stateful
-public class LoginManager implements Serializable {
+/**
+ * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
+ * 
+ */
+public interface LoginManager
+{
+   public User getCurrentUser();
 
-	private static final long serialVersionUID = 1L;
+   public void login(String email);
 
-	@Inject
-	private EntityManager em;
+   public void logout();
 
-	@Inject
-	private UserManager userManager;
-	
-	@Inject
-	@LoggedIn
-	private Event<User> loggedInEvent;
-	
-	private User currentUser;
-
-	@Produces
-	@LoggedIn
-	@Named
-	public User getCurrentUser() {
-		if (currentUser != null && !em.contains(currentUser)) {
-			currentUser = em.merge(currentUser);
-			em.refresh(currentUser);
-		}
-		return currentUser;
-	}
-
-	public void login(String email) {
-		currentUser = userManager.getUserByEmail(email);
-
-		if (currentUser == null) {
-			currentUser = new User(email);
-			userManager.addUser(currentUser);
-			
-		}
-		loggedInEvent.fire(currentUser);
-	}
-
-	public void logout() {
-		this.currentUser = null;
-	}
-
-	public boolean isLogged() {
-		return this.currentUser != null;
-	}
+   public boolean isLogged();
 }

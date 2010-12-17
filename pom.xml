@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>lectures</groupId>
@@ -84,7 +83,7 @@
          <groupId>org.jboss.seam.faces</groupId>
          <artifactId>seam-faces</artifactId>
          <version>3.0.0.Beta1</version>
-         <classifier>practice-auction-patch</classifier>        
+         <classifier>practice-auction-patch</classifier>
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.persistence</groupId>
@@ -154,7 +153,14 @@
          <version>${junit.version}</version>
          <scope>test</scope>
       </dependency>
- 
+
+      <dependency>
+         <groupId>org.mockito</groupId>
+         <artifactId>mockito-all</artifactId>
+         <version>1.8.5</version>
+         <scope>test</scope>
+      </dependency>
+
       <dependency>
          <groupId>org.jboss.arquillian.extension</groupId>
          <artifactId>arquillian-selenium</artifactId>
@@ -167,10 +173,10 @@
          <version>${selenium.version}</version>
          <scope>test</scope>
          <exclusions>
- 	     <exclusion>
- 	     	<groupId>org.hamcrest</groupId>
- 	     	<artifactId>hamcrest-all</artifactId>
- 	     </exclusion>
+            <exclusion>
+               <groupId>org.hamcrest</groupId>
+               <artifactId>hamcrest-all</artifactId>
+            </exclusion>
          </exclusions>
       </dependency>
       <dependency>
@@ -179,21 +185,21 @@
          <version>${slf4j.version}</version>
          <scope>test</scope>
       </dependency>
-      
+
       <dependency>
          <groupId>org.seleniumhq.selenium</groupId>
          <artifactId>selenium-server</artifactId>
          <version>${selenium.version}</version>
          <scope>test</scope>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.shrinkwrap</groupId>
          <artifactId>shrinkwrap-extension-dependencies</artifactId>
          <version>${shrinkwrap.version}</version>
          <scope>test</scope>
-      </dependency>      
-    
+      </dependency>
+
    </dependencies>
 
    <build>
@@ -247,11 +253,6 @@
                <version>${arquillian.container.version}</version>
                <type>pom</type>
             </dependency>
-            <dependency>
-               <groupId>javax.enterprise</groupId>
-               <artifactId>cdi-api</artifactId>
-               <version>1.0-SP2</version>
-            </dependency>
          </dependencies>
 
          <build>
@@ -263,7 +264,7 @@
                   <configuration>
                      <systemPropertyVariables>
                         <arquillian.selenium.server.enable>true</arquillian.selenium.server.enable>
-                     </systemPropertyVariables>                  
+                     </systemPropertyVariables>
                      <includes>
                         <include>**/Sel*Test.java</include>
                      </includes>

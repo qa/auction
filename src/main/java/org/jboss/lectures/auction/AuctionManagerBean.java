@@ -30,7 +30,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 	private EntityManager em;
 
 	@Inject
-	private LoginManager loginManager;
+	private LoginManager loginManagerBean;
 
 	@Produces
 	@Named
@@ -82,7 +82,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 	}
 
 	public void addBid(long bidAmount) {
-		if (!loginManager.isLogged()) {
+		if (!loginManagerBean.isLogged()) {
 			throw new IllegalStateException(
 					"user must be logged in order to add bid");
 		}
@@ -91,7 +91,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 					"currentAuction have to be selected in order to add bid");
 		}
 
-		Bid bid = new Bid(loginManager.getCurrentUser(), currentAuction,
+		Bid bid = new Bid(loginManagerBean.getCurrentUser(), currentAuction,
 				bidAmount);
 		em.persist(bid);
 		em.flush();
