@@ -1,0 +1,10 @@
+<scanning xmlns="urn:jboss:scanning:1.0">
+
+    <path name="WEB-INF/classes">
+    </path>
+    
+    <path name="WEB-INF/lib/guava-r05.jar">
+        <exclude name="com.google.common.collect" />
+    </path>
+
+</scanning>

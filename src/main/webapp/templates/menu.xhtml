@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:auction="http://java.sun.com/jsf/composite/auction">
+
+<body>
+<ui:composition>
+
+	<auction:menuItem page="list" label="Seznam aukci"
+		active="#{activeTab == 'list'}" />
+	<auction:menuItem page="myAuctions" label="Moje aukce"
+		active="#{activeTab == 'myAuctions'}"
+		rendered="#{loginManager.logged}" />
+	<auction:menuItem page="add" label="Vlozit aukci"
+		active="#{activeTab == 'add'}" rendered="#{loginManager.logged}" />
+
+
+</ui:composition>
+</body>
+</html>

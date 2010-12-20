@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<body>
+<ui:composition>
+
+	<h:form>
+		<h:panelGrid columns="1" style="width: 95%">
+			<h:outputText value="#{currentUser.name}" rendered="#{loginManager.logged}" />
+			<h:inputText id="username" value="#{username}"
+				rendered="#{not loginManager.logged}"
+				validatorMessage="Uzivatelske jmeno musi byt neprazdne prihlasovaci jmeno slozene pouze z malych znaku">
+				<f:validateRequired />
+				<f:validateRegex pattern="[a-zA-Z]+" />
+			</h:inputText>
+		</h:panelGrid>
+
+		<h:commandButton id="loginButton" value="Prihlasit se"
+			action="#{loginManager.login(username)}" rendered="#{not loginManager.logged}" />
+
+		<h:commandButton id="logoutButton" value="Odhlasit se"
+			action="#{loginManager.logout}" rendered="#{loginManager.logged}" />
+
+		<h:panelGrid columns="1">
+			<h:message for="username" />
+		</h:panelGrid>
+	</h:form>
+
+</ui:composition>
+</body>
+</html>

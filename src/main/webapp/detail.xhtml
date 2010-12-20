@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="templates/home.xhtml">
+
+	<ui:define name="view">
+		<f:metadata>
+			<f:viewParam name="auctionId"
+				value="#{auctionManager.currentAuctionId}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h2>Detail aukce "#{currentAuction.name}"</h2>
+
+		<p>ID: #{currentAuction.id}</p>
+
+		<p>Vlastnik: #{currentAuction.owner.name}</p>
+
+		<p>Pocatecni cena: #{currentAuction.originalPrice}</p>
+
+		<h:panelGrid rendered="#{not empty currentAuction.bids}">
+			<f:facet name="header">Nabidky</f:facet>
+			<h:dataTable var="offer" value="#{currentAuction.bids}" border="1">
+				<h:column>#{offer.bidder.name}</h:column>
+				<h:column>#{offer.amount}</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>
