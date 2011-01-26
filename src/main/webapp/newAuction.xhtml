@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="templates/home.xhtml">
+	
+		<ui:param name="activeTab" value="add" />
+		<ui:param name="requiredLogin" value="true" />
+	
+		<ui:define name="content">
+			
+			<f:metadata>
+				<f:event type="preRenderView" listener="#{newAuctionWizard.beginConversation}"/>
+			</f:metadata>
+			
+			<h2>Vložit aukci</h2>
+			
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Jméno aukce:" />
+					<h:inputText value="#{newAuctionWizard.auction.name}" />
+					
+					<h:outputLabel value="Popis:" />
+					<h:inputTextarea value="#{newAuctionWizard.auction.description}" />
+
+					<h:commandButton value="Zrušit" action="#{newAuctionWizard.cancel}" />	
+					<h:commandButton value="Pokračovat" action="newAuctionDetails" />	
+				</h:panelGrid>
+				
+				<h:messages style="color: red" />
+			</h:form>
+			
+		</ui:define>
+	
+	</ui:composition>
+
+</html>

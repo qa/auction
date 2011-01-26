@@ -3,6 +3,7 @@ package org.jboss.lectures.auction.entity;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = 6738831612830739013L;
 	private String email;
 	private List<Bid> bids = new ArrayList<Bid>();
 	private List<Auction> auctions = new ArrayList<Auction>();

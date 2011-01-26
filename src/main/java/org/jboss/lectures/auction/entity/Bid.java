@@ -2,13 +2,17 @@ package org.jboss.lectures.auction.entity;
 
 import static javax.persistence.GenerationType.AUTO;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Bid {
+public class Bid implements Serializable {
+
+	private static final long serialVersionUID = 3318051996005948970L;
 	private User bidder;
 	private Auction auction;
 	private Long amount;

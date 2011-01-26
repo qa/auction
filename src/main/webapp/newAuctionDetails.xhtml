@@ -11,20 +11,27 @@
 	
 		<ui:define name="content">
 			
-			<h2>Vložit aukci</h2>
+			<h2>Detaily aukce</h2>
 			
 			<h:form>
 				<h:panelGrid columns="2">
 					<h:outputLabel value="Jméno aukce:" />
-					<h:inputText value="#{newAuction.name}" />
-					
-					<h:outputLabel value="Vyvolávací cena:" />
-					<h:inputText value="#{newAuction.originalPrice}" />
+					<h:outputText value="#{newAuctionWizard.auction.name}" />
 					
 					<h:outputLabel value="Popis:" />
-					<h:inputTextarea value="#{newAuction.description}" />
+					<h:outputText value="#{newAuctionWizard.auction.description}" />
+				
+					<h:outputLabel value="Vyvolávací cena:" />
+					<h:inputText value="#{newAuctionWizard.auction.originalPrice}" />
 					
-					<h:commandButton value="Vložit" action="#{auctionManager.addAuction(newAuction)}" />	
+					<h:outputLabel value="Lokace položky:" />
+					<h:inputText value="#{newAuctionWizard.auction.location}" />
+				</h:panelGrid>
+					
+				<h:panelGrid columns="3">
+					<h:commandButton value="Zpět" action="newAuction" />
+					<h:commandButton value="Zrušit" action="#{newAuctionWizard.cancel}" />	
+					<h:commandButton value="Pokračovat" action="newAuctionSummary" />	
 				</h:panelGrid>
 				
 				<h:messages style="color: red" />

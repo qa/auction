@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -78,21 +77,6 @@ public class AuctionManagerImpl implements Serializable, AuctionManager {
 		return auctions;
 	}
 
-	public void addAuction(Auction auction) {
-		if (!loginManager.isLogged()) {
-			throw new IllegalStateException(
-					"user must be logged in order to add auction");
-		}
-
-		auction.setOwner(loginManager.getCurrentUser());
-		auction = new Auction(auction);
-		
-		em.persist(auction);
-		em.flush();
-		em.refresh(auction);
-		currentAuction = auction;
-	}
-	
 	public void refreshAuction(Auction auction) {
 		em.refresh(auction);
 	}
@@ -126,12 +110,5 @@ public class AuctionManagerImpl implements Serializable, AuctionManager {
 			user = em.merge(user);
 		user.getFavorites().remove(auction);
 		user = em.merge(user);
-	}
-
-	@Produces
-	@RequestScoped
-	@Named("newAuction")
-	public Auction createNewAuction() {
-		return new Auction();
 	}
 }

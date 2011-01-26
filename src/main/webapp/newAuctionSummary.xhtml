@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="templates/home.xhtml">
+	
+		<ui:param name="activeTab" value="add" />
+		<ui:param name="requiredLogin" value="true" />
+	
+		<ui:define name="content">
+			
+			<h2>Shrnutí</h2>
+			
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Vlastník:" />
+					<h:outputText value="#{currentUser.name}" />
+				
+					<h:outputLabel value="Jméno aukce:" />
+					<h:outputText value="#{newAuctionWizard.auction.name}" />
+					
+					<h:outputLabel value="Popis:" />
+					<h:outputText value="#{newAuctionWizard.auction.description}" />
+					
+					<h:outputLabel value="Vyvolávací cena:" />
+					<h:outputText value="#{newAuctionWizard.auction.originalPrice}" />
+					
+					<h:outputLabel value="Lokace položky:" />
+					<h:outputText value="#{newAuctionWizard.auction.location}" />
+				</h:panelGrid>
+					
+				<h:panelGrid columns="3">
+					<h:commandButton value="Zpět" action="newAuctionDetails" />	
+					<h:commandButton value="Zrušit" action="#{newAuctionWizard.cancel}" />	
+					<h:commandButton value="Uložit aukci" action="#{newAuctionWizard.saveAuction}" />	
+				</h:panelGrid>
+				
+				<h:messages style="color: red" />
+			</h:form>
+			
+		</ui:define>
+	
+	</ui:composition>
+
+</html>

@@ -38,10 +38,12 @@ public class LoginManager implements Serializable {
 	private Event<User> registeredEvent;
 
 	@Produces
+	@LoggedIn
 	@Named
 	public User getCurrentUser() {
 		if (currentUser != null && !em.contains(currentUser)) {
 			currentUser = em.merge(currentUser);
+			em.refresh(currentUser);
 		}
 		return currentUser;
 	}

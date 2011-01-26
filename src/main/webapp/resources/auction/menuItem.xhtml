@@ -22,6 +22,7 @@
 		
 		<li>
 			<h:link outcome="#{cc.attrs.page}" styleClass="#{cc.attrs.active ? 'active' : ''}" rendered="#{cc.attrs.rendered}">
+				<f:param name="cid" /> <!-- Workaround for WELD-549 -->
 	            <span class="l"></span>
 				<span class="r"></span>
 				<span class="t">#{cc.attrs.label}</span>

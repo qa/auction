@@ -19,8 +19,6 @@ public interface AuctionManager
 
 	public abstract List<Auction> getAuctionLoosingByUser(User user);
 
-	public abstract void addAuction(Auction auction);
-
 	public abstract void refreshAuction(Auction auction);
 
 	public abstract void addBid(long bidAmount);
@@ -28,7 +26,4 @@ public interface AuctionManager
 	public abstract void addFavorite(User user, Auction auction);
 
 	public abstract void removeFavorite(User user, Auction auction);
-
-	public abstract Auction createNewAuction();
-
 }

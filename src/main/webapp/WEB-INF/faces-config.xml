@@ -2,7 +2,6 @@
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-	
 	<navigation-rule>
 		<navigation-case>
 			<from-action>#{loginManager.login(loginEmail)}</from-action>
@@ -29,9 +28,9 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
-
+	<!-- New Auction Wizard -->
 	<navigation-rule>
-		<from-view-id>/add.xhtml</from-view-id>
+		<from-view-id>/newAuction.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{auctionManager.addAuction(newAuction)}</from-action>
 			<if>#{true}</if>
@@ -39,7 +38,31 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
-	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>newAuction</from-outcome>
+			<to-view-id>/newAuction.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>newAuctionDetails</from-outcome>
+			<to-view-id>/newAuctionDetails.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>newAuctionSummary</from-outcome>
+			<to-view-id>/newAuctionSummary.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{newAuctionWizard.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/list.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{newAuctionWizard.saveAuction}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/myAuctions.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/detail.xhtml</from-view-id>
 		<navigation-case>
@@ -49,5 +72,4 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
-	
 </faces-config>
