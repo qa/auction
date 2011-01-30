@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#add.xhtml" PATH="/add.xhtml"
-  SHAPE="56,128,50,41" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#add.xhtml:0" NAME="item" PATH="/add.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID=":#{auctionManager.addAuction(newAuction)}:#detail.xhtml"
-    NAME="output" PATH="/detail.xhtml" TARGET="rules:#detail.xhtml"
-    TITLE="#{auctionManager.addAuction(newAuction)}:[any]" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#detail.xhtml" PATH="/detail.xhtml"
   SHAPE="576,88,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#detail.xhtml:0" NAME="item"

@@ -6,24 +6,23 @@ import org.jboss.lectures.auction.entity.User;
 
 public interface AuctionManager 
 {
+	Auction getCurrentAuction();
 
-	public abstract Auction getCurrentAuction();
+	Long getCurrentAuctionId();
 
-	public abstract Long getCurrentAuctionId();
+	void setCurrentAuctionId(Long currentId);
 
-	public abstract void setCurrentAuctionId(Long currentId);
+	List<Auction> getAll();
 
-	public abstract List<Auction> getAll();
+	List<Auction> getAuctionsWinningByUser(User user);
 
-	public abstract List<Auction> getAuctionsWinningByUser(User user);
+	List<Auction> getAuctionLoosingByUser(User user);
 
-	public abstract List<Auction> getAuctionLoosingByUser(User user);
+	void refreshAuction(Auction auction);
 
-	public abstract void refreshAuction(Auction auction);
+	void addBid(long bidAmount);
 
-	public abstract void addBid(long bidAmount);
+	void addFavorite(User user, Auction auction);
 
-	public abstract void addFavorite(User user, Auction auction);
-
-	public abstract void removeFavorite(User user, Auction auction);
+	void removeFavorite(User user, Auction auction);
 }

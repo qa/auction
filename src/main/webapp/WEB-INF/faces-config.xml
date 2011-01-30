@@ -28,48 +28,19 @@
 			<redirect include-view-params="true" />
 		</navigation-case>
 	</navigation-rule>
-	<!-- New Auction Wizard -->
-	<navigation-rule>
-		<from-view-id>/newAuction.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{auctionManager.addAuction(newAuction)}</from-action>
-			<if>#{true}</if>
-			<to-view-id>/detail.xhtml</to-view-id>
-			<redirect include-view-params="true" />
-		</navigation-case>
-	</navigation-rule>
+	<!-- New Auction Wizard navigation -->
 	<navigation-rule>
 		<navigation-case>
-			<from-outcome>newAuction</from-outcome>
-			<to-view-id>/newAuction.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>newAuctionDetails</from-outcome>
-			<to-view-id>/newAuctionDetails.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>newAuctionSummary</from-outcome>
-			<to-view-id>/newAuctionSummary.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{newAuctionWizard.cancel}</from-action>
+			<from-action>#{newAuctionWizard.cancel()}</from-action>
 			<if>#{true}</if>
 			<to-view-id>/list.xhtml</to-view-id>
+			<redirect include-view-params="false"/>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{newAuctionWizard.saveAuction}</from-action>
+			<from-action>#{newAuctionWizard.saveAuction()}</from-action>
 			<if>#{true}</if>
 			<to-view-id>/myAuctions.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/detail.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{auctionManager.addBid(bidAmount)}</from-action>
-			<if>#{true}</if>
-			<to-view-id>/detail.xhtml</to-view-id>
-			<redirect include-view-params="true" />
+			<redirect include-view-params="false"/>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

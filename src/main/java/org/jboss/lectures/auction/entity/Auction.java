@@ -17,19 +17,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.jboss.lectures.auction.validation.City;
 
 @Entity
 public class Auction implements Serializable {
 
 	private static final long serialVersionUID = -38089703767395198L;
+	@Size(min=2, max=30, message = "Nazov aukcie musi mat minimalne {min} a maximalne {max} znakov")
 	private String name;
 	private User owner;
+	@Size(max=1000, message = "Popis moze mat maximalne {max} znakov")
 	private String description;
+	@Min(value = 1, message = "Minimalne vyvolavacia cena je 1 Kc")
+	@NotNull(message = "Zadajte vyvolavaciu cenu")
 	private Long originalPrice;
 	private Bid highestBid;
 	private List<Bid> bids = new ArrayList<Bid>();
 	private List<User> bookmarkedBy = new ArrayList<User>();
 	private Long id;
+	@City
 	private String location;
 
 	public Auction() {

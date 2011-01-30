@@ -5,15 +5,14 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<ui:composition template="templates/home.xhtml">
-	
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{newAuctionWizard.beginConversation()}"/>
+		</f:metadata>		
+
 		<ui:param name="activeTab" value="add" />
 		<ui:param name="requiredLogin" value="true" />
 	
 		<ui:define name="content">
-			
-			<f:metadata>
-				<f:event type="preRenderView" listener="#{newAuctionWizard.beginConversation}"/>
-			</f:metadata>
 			
 			<h2>Vložit aukci</h2>
 			
@@ -25,7 +24,7 @@
 					<h:outputLabel value="Popis:" />
 					<h:inputTextarea value="#{newAuctionWizard.auction.description}" />
 
-					<h:commandButton value="Zrušit" action="#{newAuctionWizard.cancel}" />	
+					<h:commandButton value="Zrušit" action="#{newAuctionWizard.cancel()}" />	
 					<h:commandButton value="Pokračovat" action="newAuctionDetails" />	
 				</h:panelGrid>
 				

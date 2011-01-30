@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.jboss.lectures.auction.entity.User;
+import org.jboss.lectures.auction.qualifiers.Registered;
 
 @Named
 @Stateless
@@ -19,9 +21,15 @@ public class UserManager implements Serializable {
 
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	@Registered
+	private Event<User> registeredEvent;
+	
 
 	public void addUser(User user) {
 		em.persist(user);
+		registeredEvent.fire(user);
 	}
 
 	public User getUserByEmail(String email) {

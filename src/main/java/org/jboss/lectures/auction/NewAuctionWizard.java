@@ -14,46 +14,41 @@ import org.jboss.lectures.auction.entity.User;
 import org.jboss.lectures.auction.qualifiers.LoggedIn;
 
 @ConversationScoped
-@Named
 @Stateful
+@Named
 public class NewAuctionWizard implements Serializable {
 
-	private static final long serialVersionUID = -5844964432517883205L;
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private Conversation conversation;
-	
+
 	@Inject
 	@LoggedIn
 	private User user;
-	
+
 	@Inject
 	private EntityManager em;
-	
-	private Auction auction = new Auction();
-	
-	
-	public Auction getAuction() {
-		return auction;
-	}
 
-	public void beginConversation()
-	{
-		if (conversation.isTransient())
-		{
+	private Auction auction = new Auction();
+
+	public void beginConversation() {
+		if (conversation.isTransient()) {
 			conversation.begin();
 		}
 	}
-	
-	public void saveAuction()
-	{
+
+	public void cancel() {
+		conversation.end();
+	}
+
+	public void saveAuction() {
 		auction.setOwner(user);
 		em.persist(auction);
 		conversation.end();
 	}
-	
-	public void cancel()
-	{
-		conversation.end();
+
+	public Auction getAuction() {
+		return auction;
 	}
 }

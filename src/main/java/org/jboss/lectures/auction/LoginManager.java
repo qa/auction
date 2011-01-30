@@ -11,7 +11,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.lectures.auction.entity.User;
-import org.jboss.lectures.auction.events.Registered;
 import org.jboss.lectures.auction.qualifiers.LoggedIn;
 
 @SessionScoped
@@ -26,16 +25,12 @@ public class LoginManager implements Serializable {
 
 	@Inject
 	private UserManager userManager;
-
-	private User currentUser;
-
+	
 	@Inject
 	@LoggedIn
 	private Event<User> loggedInEvent;
-
-	@Inject
-	@Registered
-	private Event<User> registeredEvent;
+	
+	private User currentUser;
 
 	@Produces
 	@LoggedIn
@@ -54,10 +49,9 @@ public class LoginManager implements Serializable {
 		if (currentUser == null) {
 			currentUser = new User(email);
 			userManager.addUser(currentUser);
-			registeredEvent.fire(currentUser); // fire event
+			
 		}
-
-		loggedInEvent.fire(currentUser); // fire event
+		loggedInEvent.fire(currentUser);
 	}
 
 	public void logout() {
