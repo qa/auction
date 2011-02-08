@@ -192,14 +192,14 @@
          <version>${selenium.version}</version>
          <scope>test</scope>
       </dependency>
-
+<!--
       <dependency>
          <groupId>org.jboss.shrinkwrap</groupId>
          <artifactId>shrinkwrap-extension-dependencies</artifactId>
          <version>${shrinkwrap.version}</version>
          <scope>test</scope>
       </dependency>
-
+-->
    </dependencies>
 
    <build>
