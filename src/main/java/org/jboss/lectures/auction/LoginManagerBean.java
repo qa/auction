@@ -14,7 +14,7 @@ import org.jboss.lectures.auction.entity.User;
 import org.jboss.lectures.auction.qualifiers.LoggedIn;
 
 @SessionScoped
-@Named
+@Named("loginManager")
 @Stateful
 public class LoginManagerBean implements Serializable, LoginManager {
 
