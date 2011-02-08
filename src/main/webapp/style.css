@@ -55,26 +55,30 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 		
 /* main area */
 #main { }
-	#right_side { float: right; width: 560px; background: #FFFFFF; padding: 5px 10px 5px 10px; margin-bottom: 10px }
-		#right_side ul { padding: 3px 0 8px 0 } 
-		#right_side li { line-height: 18px; background: #FFFFFF url(images/cat-li.gif) no-repeat left; list-style: none; padding-left: 20px; }
-		#right_side a { background: #FFFFFF; text-decoration:  none }
-		#right_side h3 { color: #404040; font:  bold 1.2em Arial, Sans-Serif; }
-	
-	#left_side { background: #F6F6F6; margin-bottom: 10px; width: 212px;  }
-		#left_side h3 { background: #F6F6F6 url(images/hbg.gif) repeat-x; height:30px; padding: 5px 0 0 0px; margin: 0; font:  bold 1.2em Arial, Sans-Serif; }
-		#left_side h3 span { background: url(images/h-art.gif) no-repeat left; padding: 1px 10px 0 23px;  line-height: 22px; margin: 0}
-		#left_side p { color: #454545; padding: 0 5px 0 5px; text-align: justify }
-		#left_side img { float: left; padding: 0 10px 5px 0 }
-		#left_side blockquote { padding-left: 10px; border-left: 2px solid #DA4040; margin: 10px 0 10px 25px; }
+	#right_side { float: right; width: 560px; background: #FFF; padding: 5px 10px 5px 10px; margin-bottom: 10px; margin-top: -7px }
+		#right_side h2 { background: #FFF url(images/hbg.gif) repeat-x; height:30px; padding: 5px 0 5px 0px; margin: 0; font:  bold 1.2em Arial, Sans-Serif; }
+		#right_side h2 span { background: url(images/h-art.gif) no-repeat left; padding: 1px 10px 0 23px;  line-height: 22px; margin: 0}
+		#right_side p { color: #454545; padding: 0 5px 0 5px; text-align: justify }
+		#right_side img { float: right; padding: 0 10px 5px 0 }
+		#right_side blockquote { padding-left: 10px; border-left: 2px solid #DA4040; margin: 10px 0 10px 25px; }
 		.date { border-top: 1px dotted #ccc; padding: 5px 0; margin: 10px 0 25px 0; text-align: right }		
-		#left_side .rs { float: right; margin: 0 10px; border: 1px solid #ddd; padding: 5px; background: #f5f5f5  }
-		#left_side ul { list-style-position: inside; margin-left: 2px }
-		#left_side ul li { list-style-type: square; margin-left: 15px;  }
-		#left_side ul ul li { list-style: none; margin-left: 10px; list-style-type: lower-alpha; list-style-position: inside }
-	
+		#right_side .rs { float: right; margin: 0 10px; border: 1px solid #ddd; padding: 5px; background: #f5f5f5  }
+		#right_side ul { list-style-position: inside; margin-left: 2px }
+		#right_side ul li { list-style-type: square; margin-left: 15px;  }
+		#right_side ul ul li { list-style: none; margin-left: 10px; list-style-type: lower-alpha; list-style-position: inside }
+		
+	#left_side { background: #F6F6F6; margin-bottom: 10px; width: 212px; margin-top: 15px }
+		#left_side ul { padding: 3px 0 8px 0 } 
+		#left_side li { line-height: 18px; background: #F6F6F6 url(images/cat-li.gif) no-repeat left; list-style: none; padding-left: 20px; }
+		#left_side a { background: #F6F6F6; text-decoration:  none }
+		#left_side h2 { color: #404040; font:  bold 1.2em Arial, Sans-Serif; }
+
 /* The footer */
 #footer { clear: both; border-top: 1px solid #DCDCDC; margin: 0 0 3em 0; color: #777;  background: #fff }
 #footer .right  { float: right; text-align: right; background: #FFF; }
 #footer a { text-decoration: none; background: #FFF }
 	
+input, select {
+	font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+	font-size: 12px;
+}
