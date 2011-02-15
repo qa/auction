@@ -3,11 +3,10 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>lectures</groupId>
-   <artifactId>practice0x-testing</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
+   <artifactId>auction</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+   <name>Auction</name>
    <packaging>war</packaging>
-
-   <name>JEE lab - Testing - JBDS</name>
 
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
