@@ -18,6 +18,8 @@
       <mockito.version>1.8.1</mockito.version>
       <junit.version>4.8.1</junit.version>
       <slf4j.version>1.5.10</slf4j.version>
+      <seam.version>3.0.0.b09</seam.version>
+      <richfaces.version>4.0.0.20101004-M3</richfaces.version>
    </properties>
 
    <repositories>
@@ -53,14 +55,21 @@
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee6-specs-bom</artifactId>
-            <version>1.0.0.Beta5</version>
+            <version>1.0.1.Final</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam</groupId>
+            <artifactId>seam-bom</artifactId>
+            <version>${seam.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
          <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-bom</artifactId>
-            <version>4.0.0.20101004-M3</version>
+            <version>${richfaces.version}</version>
             <scope>import</scope>
             <type>pom</type>
          </dependency>
@@ -71,25 +80,23 @@
       <dependency>
          <groupId>org.jboss.spec</groupId>
          <artifactId>jboss-javaee-6.0</artifactId>
-         <version>1.0.0.Beta7</version>
+         <version>1.0.0.Final</version>
          <type>pom</type>
          <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.faces</groupId>
+         <artifactId>seam-faces</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.persistence</groupId>
+         <artifactId>seam-persistence</artifactId>
       </dependency>
       <dependency>
          <groupId>org.richfaces.ui</groupId>
          <artifactId>richfaces-components-ui</artifactId>
       </dependency>
-      <dependency>
-         <groupId>org.jboss.seam.faces</groupId>
-         <artifactId>seam-faces</artifactId>
-         <version>3.0.0.Beta1</version>
-         <classifier>practice-auction-patch</classifier>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.seam.persistence</groupId>
-         <artifactId>seam-persistence-impl</artifactId>
-         <version>3.0.0.Alpha1</version>
-      </dependency>
+      
 
       <!-- dependencies needed for sending emails from Java (in events section) -->
       <dependency>
@@ -111,32 +118,6 @@
          <groupId>org.subethamail</groupId>
          <artifactId>subethasmtp-wiser</artifactId>
          <version>1.2</version>
-      </dependency>
-
-      <!-- following dependencies needs to be marked as provided by container -->
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-         <version>1.0-SP2</version>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-         <groupId>javax.el</groupId>
-         <artifactId>el-api</artifactId>
-         <version>1.0</version>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.spec.javax.el</groupId>
-         <artifactId>jboss-el-api_2.2_spec</artifactId>
-         <version>1.0.0.Beta2</version>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-         <groupId>javax.transaction</groupId>
-         <artifactId>jta</artifactId>
-         <version>1.1</version>
-         <scope>provided</scope>
       </dependency>
 
       <!-- Test dependencies -->
