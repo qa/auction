@@ -15,8 +15,8 @@ import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -137,11 +137,11 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 					Session.AUTO_ACKNOWLEDGE);
 			MessageProducer sender = session
 					.createProducer(auctionNotification);
-			MapMessage msg = session.createMapMessage();
+			ObjectMessage msg = session.createObjectMessage();
 			msg.setJMSDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			msg.setString("user", bidder.getEmail());
-			msg.setLong("auctionId", auction.getId());
-			msg.setLong("bid", bidAmount);
+			msg.setObject(bidAmount);
+			msg.setStringProperty("user", bidder.getEmail());
+			msg.setLongProperty("auctionId", auction.getId());
 			sender.send(msg);
 			sender.close();
 			session.close();
