@@ -3,12 +3,21 @@ package org.jboss.lectures.auction;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.DeliveryMode;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -31,6 +40,12 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 
 	@Inject
 	private LoginManager loginManagerBean;
+
+	@Resource(mappedName = "/ConnectionFactory")
+	ConnectionFactory jmsConnectionFactory;
+
+	@Resource(mappedName = "/topic/AuctionNotification")
+	Destination auctionNotification;
 
 	@Produces
 	@Named
@@ -96,6 +111,8 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 		em.persist(bid);
 		em.flush();
 		em.refresh(bid);
+		notifyBid(loginManagerBean.getCurrentUser(), currentAuction, bidAmount);
+
 	}
 
 	public void addFavorite(User user, Auction auction) {
@@ -111,4 +128,28 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 		user.getFavorites().remove(auction);
 		user = em.merge(user);
 	}
+
+	private void notifyBid(User bidder, Auction auction, long bidAmount) {
+		try {
+			Connection connection = jmsConnectionFactory.createConnection();
+			connection.start();
+			Session session = connection.createSession(false,
+					Session.AUTO_ACKNOWLEDGE);
+			MessageProducer sender = session
+					.createProducer(auctionNotification);
+			MapMessage msg = session.createMapMessage();
+			msg.setJMSDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			msg.setString("user", bidder.getEmail());
+			msg.setLong("auctionId", auction.getId());
+			msg.setLong("bid", bidAmount);
+			sender.send(msg);
+			sender.close();
+			session.close();
+			connection.stop();
+			connection.close();
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
