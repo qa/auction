@@ -26,7 +26,7 @@ public interface LoginManager
 {
    public User getCurrentUser();
 
-   public void login(String email);
+   public void login(String email) throws InvalidUserException;
 
    public void logout();
 
