@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.SessionContext;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,7 +30,7 @@ public class UserManager implements Serializable {
 	
 	@EJB
 	MessageNotifier messageNotifier;
-	
+
 	public void addUser(User user) throws InvalidUserException {
 		em.persist(user);
 		registeredEvent.fire(user);
