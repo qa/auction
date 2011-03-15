@@ -4,22 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.DeliveryMode;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
-import javax.jms.Session;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.TransactionManager;
 
 import org.jboss.lectures.auction.entity.Auction;
 import org.jboss.lectures.auction.entity.Bid;
@@ -41,11 +35,11 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 	@Inject
 	private LoginManager loginManagerBean;
 
-	@Resource(mappedName = "/ConnectionFactory")
-	ConnectionFactory jmsConnectionFactory;
+	@EJB
+	MessageNotifier messageNotifier;
 
-	@Resource(mappedName = "/topic/AuctionNotification")
-	Destination auctionNotification;
+	@Resource(mappedName = "java:/TransactionManager")
+	TransactionManager txManager;
 
 	@Produces
 	@Named
@@ -97,6 +91,12 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 	}
 
 	public void addBid(long bidAmount) {
+		try {
+			txManager.getTransaction().registerSynchronization(
+					new PrintSynchronization());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if (!loginManagerBean.isLogged()) {
 			throw new IllegalStateException(
 					"user must be logged in order to add bid");
@@ -111,8 +111,8 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 		em.persist(bid);
 		em.flush();
 		em.refresh(bid);
-		notifyBid(loginManagerBean.getCurrentUser(), currentAuction, bidAmount);
-
+		messageNotifier.notifyBid(loginManagerBean.getCurrentUser(),
+				currentAuction, bidAmount);
 	}
 
 	public void addFavorite(User user, Auction auction) {
@@ -127,29 +127,6 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 			user = em.merge(user);
 		user.getFavorites().remove(auction);
 		user = em.merge(user);
-	}
-
-	private void notifyBid(User bidder, Auction auction, long bidAmount) {
-		try {
-			Connection connection = jmsConnectionFactory.createConnection();
-			connection.start();
-			Session session = connection.createSession(false,
-					Session.AUTO_ACKNOWLEDGE);
-			MessageProducer sender = session
-					.createProducer(auctionNotification);
-			ObjectMessage msg = session.createObjectMessage();
-			msg.setJMSDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			msg.setObject(bidAmount);
-			msg.setStringProperty("user", bidder.getEmail());
-			msg.setLongProperty("auctionId", auction.getId());
-			sender.send(msg);
-			sender.close();
-			session.close();
-			connection.stop();
-			connection.close();
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
