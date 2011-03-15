@@ -43,7 +43,7 @@ public class LoginManagerBean implements Serializable, LoginManager {
 		return currentUser;
 	}
 
-	public void login(String email) {
+	public void login(String email) throws InvalidUserException {
 		currentUser = userManager.getUserByEmail(email);
 
 		if (currentUser == null) {
