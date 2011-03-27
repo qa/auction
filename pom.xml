@@ -118,6 +118,13 @@
           <artifactId>h2</artifactId>
           <version>${h2.version}</version>
       </dependency>
+      <dependency>
+      	<groupId>org.picketbox</groupId>
+      	<artifactId>picketbox-bare</artifactId>
+      	<version>3.0.0.CR2</version>
+      	<type>jar</type>
+      	<scope>provided</scope>
+      </dependency>
    </dependencies>
 
    <build>

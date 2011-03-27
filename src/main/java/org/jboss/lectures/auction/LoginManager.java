@@ -24,9 +24,11 @@ import org.jboss.lectures.auction.entity.User;
  */
 public interface LoginManager
 {
+   public static final String SECURITY_DOMAIN = "auction";
+	
    public User getCurrentUser();
 
-   public void login(String email) throws InvalidUserException;
+   public void login(String email, String password) throws InvalidUserException;
 
    public void logout();
 

@@ -18,10 +18,13 @@
 				<f:validateRequired />
 				<f:validateRegex pattern="^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$" />
 			</h:inputText>
+			<h:inputText id="passwordInput" value="#{loginPassword}"
+				rendered="#{not loginManager.logged}">
+			</h:inputText>
 		</h:panelGrid>
 
 		<h:commandButton id="loginButton" value="Přihlásit se"
-			action="#{loginManager.login(loginEmail)}" rendered="#{not loginManager.logged}" />
+			action="#{loginManager.login(loginEmail, loginPassword)}" rendered="#{not loginManager.logged}" />
 
 		<h:commandButton id="logoutButton" value="Odhlásit se"
 			action="#{loginManager.logout}" rendered="#{loginManager.logged}" />

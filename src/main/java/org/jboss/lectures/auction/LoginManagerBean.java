@@ -1,6 +1,7 @@
 package org.jboss.lectures.auction;
 
 import java.io.Serializable;
+import java.security.Principal;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -9,9 +10,13 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.security.auth.Subject;
 
 import org.jboss.lectures.auction.entity.User;
 import org.jboss.lectures.auction.qualifiers.LoggedIn;
+import org.jboss.security.AuthenticationManager;
+import org.jboss.security.SimplePrincipal;
+import org.picketbox.factories.SecurityFactory;
 
 @SessionScoped
 @Named("loginManager")
@@ -43,7 +48,11 @@ public class LoginManagerBean implements Serializable, LoginManager {
 		return currentUser;
 	}
 
-	public void login(String email) throws InvalidUserException {
+	public void login(String email, String password) throws InvalidUserException {
+
+		// perform authentication
+		authenticateUser(email, password);
+		
 		currentUser = userManager.getUserByEmail(email);
 
 		if (currentUser == null) {
@@ -61,4 +70,36 @@ public class LoginManagerBean implements Serializable, LoginManager {
 	public boolean isLogged() {
 		return this.currentUser != null;
 	}
+	
+	private void authenticateUser(String email, String password)
+			throws InvalidUserException {
+		SecurityFactory.prepare();
+		try {
+			AuthenticationManager am = SecurityFactory
+					.getAuthenticationManager(LoginManager.SECURITY_DOMAIN);
+			if (am == null) {
+				throw new InvalidUserException("Authentication Manager is null");
+			}
+
+			Subject subject = new Subject();
+			Principal principal = new SimplePrincipal(email);
+			Object credential = password;
+
+			boolean result = am.isValid(principal, credential);
+			if (result == false) {
+				throw new InvalidUserException("Authentication Failed");
+			}
+			result = am.isValid(principal, credential, subject);
+			if (result == false)
+				throw new InvalidUserException("Authentication Failed");
+
+			if (subject.getPrincipals().size() < 1)
+				throw new InvalidUserException("Subject has zero principals");
+			System.out.println("Authentication Successful");
+		} finally {
+			SecurityFactory.release();
+		}
+
+	}
+	
 }
