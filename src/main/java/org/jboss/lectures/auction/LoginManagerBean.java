@@ -77,7 +77,7 @@ public class LoginManagerBean implements Serializable, LoginManager {
 		SecurityFactory.prepare();
 		try {
 			
-			String configFile = "config/authentication.conf";
+			String configFile = "security/auth-conf.xml";
 	        PicketBoxConfiguration idtrustConfig = new PicketBoxConfiguration();
 	        idtrustConfig.load(configFile);
 	
