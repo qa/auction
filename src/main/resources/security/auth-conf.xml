@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="urn:jboss:security-config:5.0"
+         xmlns="urn:jboss:security-config:5.0"
+         xmlns:jbxb="urn:jboss:security-config:5.0">
+   <application-policy name = "auction"> 
+       <authentication>
+          <login-module code = "org.jboss.security.auth.spi.UsersRolesLoginModule"
+             flag = "required"> 
+             <module-option name="usersProperties">security/auction-users.properties</module-option>
+             <module-option name="rolesProperties">security/auction-roles.properties</module-option>
+          </login-module> 
+       </authentication> 
+    </application-policy>  
+</policy>
