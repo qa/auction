@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
@@ -23,6 +26,7 @@ import org.jboss.lectures.auction.qualifiers.CurrentAuction;
 @ViewScoped
 @Named("auctionManager")
 @Stateful
+@DeclareRoles({"auctionUser","auctionAdmin"})
 public class AuctionManagerBean implements Serializable, AuctionManager {
 
 	private static final long serialVersionUID = 1L;
@@ -41,6 +45,8 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 	@Resource(mappedName = "java:/TransactionManager")
 	TransactionManager txManager;
 
+	@Resource SessionContext sessionContext;
+	
 	@Produces
 	@Named
 	@Dependent
@@ -65,6 +71,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 				.getResultList();
 	}
 
+	@RolesAllowed({"auctionUser","auctionAdmin"})
 	public List<Auction> getAuctionsWinningByUser(User user) {
 		String jql = "SELECT auction FROM Auction auction, User user "
 				+ "WHERE user=:user AND auction.highestBid member of user.bids "
@@ -75,6 +82,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 		return auctions;
 	}
 
+	@RolesAllowed({"auctionUser","auctionAdmin"})
 	public List<Auction> getAuctionLoosingByUser(User user) {
 		String jql = "SELECT DISTINCT auction FROM User user "
 				+ "JOIN user.bids bid JOIN bid.auction auction "
@@ -90,6 +98,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 		em.refresh(auction);
 	}
 
+	@RolesAllowed({"auctionUser"})
 	public void addBid(long bidAmount) {
 		try {
 			txManager.getTransaction().registerSynchronization(
@@ -97,7 +106,7 @@ public class AuctionManagerBean implements Serializable, AuctionManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (!loginManagerBean.isLogged()) {
+		if (sessionContext.getCallerPrincipal() == null) {
 			throw new IllegalStateException(
 					"user must be logged in order to add bid");
 		}

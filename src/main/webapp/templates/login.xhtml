@@ -18,9 +18,9 @@
 				<f:validateRequired />
 				<f:validateRegex pattern="^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$" />
 			</h:inputText>
-			<h:inputText id="passwordInput" value="#{loginPassword}"
+			<h:inputSecret id="passwordInput" value="#{loginPassword}"
 				rendered="#{not loginManager.logged}">
-			</h:inputText>
+			</h:inputSecret>
 		</h:panelGrid>
 
 		<h:commandButton id="loginButton" value="Přihlásit se"
