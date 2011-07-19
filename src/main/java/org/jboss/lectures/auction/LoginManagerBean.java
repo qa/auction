@@ -16,6 +16,7 @@ import org.jboss.lectures.auction.entity.User;
 import org.jboss.lectures.auction.qualifiers.LoggedIn;
 import org.jboss.security.AuthenticationManager;
 import org.jboss.security.SimplePrincipal;
+import org.picketbox.config.PicketBoxConfiguration;
 import org.picketbox.factories.SecurityFactory;
 
 @SessionScoped
@@ -75,6 +76,11 @@ public class LoginManagerBean implements Serializable, LoginManager {
 			throws InvalidUserException {
 		SecurityFactory.prepare();
 		try {
+			
+			String configFile = "config/authentication.conf";
+	        PicketBoxConfiguration idtrustConfig = new PicketBoxConfiguration();
+	        idtrustConfig.load(configFile);
+	
 			AuthenticationManager am = SecurityFactory
 					.getAuthenticationManager(LoginManager.SECURITY_DOMAIN);
 			if (am == null) {
